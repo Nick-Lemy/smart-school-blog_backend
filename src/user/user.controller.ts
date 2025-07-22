@@ -16,12 +16,12 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get()
+  @Get(':id')
   findOne(@Param() id: string) {
     return this.userService.findOne(Number(id));
   }
 
-  @Patch()
+  @Patch(':id')
   update(@Param() id: string, @Body() dto: UpdateUserDto) {
     return this.userService.update(Number(id), dto);
   }
