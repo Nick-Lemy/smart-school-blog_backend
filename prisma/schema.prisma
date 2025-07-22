@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  email              String    @unique
+  role               String
+  posts              Post[]
+  events             Event[]
+  comments           Comment[]
+  isVerified         Boolean
+  languagePreference String
+  createdAt          DateTime  @default(now())
+}
+
+model Post {
+  id        Int        @id @default(autoincrement())
+  title     String
+  content   String
+  authorId  Int
+  author    User       @relation(fields: [authorId], references: [id])
+  aiSummary AISummary?
+  createdAt DateTime   @default(now())
+  comments  Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id])
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Event {
+  id        Int      @id @default(autoincrement())
+  title     String
+  category  String
+  startDate DateTime
+  endDate   DateTime
+  hostId    Int
+  host      User     @relation(fields: [hostId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model AISummary {
+  id          Int      @id @default(autoincrement())
+  content     String
+  generatedAt DateTime @default(now())
+  postId      Int      @unique
+  post        Post     @relation(fields: [postId], references: [id])
+}
