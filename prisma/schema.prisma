@@ -3,6 +3,10 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+enum Language {
+  Fr
+  Eng
+}
 
 generator client {
   provider = "prisma-client-js"
@@ -23,7 +27,7 @@ model User {
   events             Event[]
   comments           Comment[]
   isVerified         Boolean
-  languagePreference String
+  languagePreference Language
   createdAt          DateTime  @default(now())
 }
 
