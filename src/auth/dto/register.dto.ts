@@ -2,7 +2,7 @@
 import { IsEmail, IsString, IsEnum, IsBoolean } from 'class-validator';
 import { Language } from 'generated/prisma';
 
-export class CreateUserDto {
+export class RegisterUserDto {
   @IsString()
   name: string;
 
