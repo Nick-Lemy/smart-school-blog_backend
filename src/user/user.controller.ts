@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -25,14 +26,24 @@ export class UserController {
   findAll() {
     return this.userService.findAll();
   }
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  getProfile(@Req() req: { user: { userId: string; email: string } }) {
+    console.log('req.user:', req.user);
+    return req.user;
+  }
 
-  @Get('/:id')
+  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(Number(id));
   }
 
-  @Patch('/:id')
-  update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-    return this.userService.update(Number(id), dto);
+  @UseGuards(JwtAuthGuard)
+  @Patch('me')
+  updateMe(@Req() req, @Body() dto: UpdateUserDto) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const userId = req.user.id;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return this.userService.update(userId, dto);
   }
 }
