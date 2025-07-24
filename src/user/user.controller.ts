@@ -42,7 +42,7 @@ export class UserController {
   @Patch('me')
   updateMe(@Req() req, @Body() dto: UpdateUserDto) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const userId = req.user.id;
+    const userId = req.user.userId;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return this.userService.update(userId, dto);
   }

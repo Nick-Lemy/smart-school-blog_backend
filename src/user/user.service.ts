@@ -17,8 +17,15 @@ export class UserService {
     });
   }
 
-  update(id: number, data: UpdateUserDto) {
-    return this.prisma.user.update({ where: { id }, data });
+  async update(id: number, dto: UpdateUserDto) {
+    if (dto.password) {
+      const hashedPassword = await bcrypt.hash(dto.password, 10);
+      return this.prisma.user.update({
+        where: { id },
+        data: { ...dto, password: hashedPassword },
+      });
+    }
+    return this.prisma.user.update({ where: { id }, data: dto });
   }
 
   remove(id: number) {
