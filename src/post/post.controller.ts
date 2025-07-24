@@ -44,15 +44,12 @@ export class PostController {
     @Req() req: { user: { userId: number } },
   ) {
     const post = await this.postService.findOne(+id);
-
     if (!post) {
       throw new NotFoundException('Post not found');
     }
-
     if (post.authorId !== req.user.userId) {
       throw new ForbiddenException('You are not allowed to update this post');
     }
-
     return this.postService.update(+id, dto);
   }
 
