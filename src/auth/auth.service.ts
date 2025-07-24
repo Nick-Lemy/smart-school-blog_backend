@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { UserService } from 'src/user/user.service';
 import { RegisterUserDto } from './dto/register.dto';
+import { User } from 'generated/prisma';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,7 @@ export class AuthService {
     }
     throw new UnauthorizedException('Invalid credentials');
   }
-  login(user: LoginDto) {
+  login(user: Omit<User, 'password'>) {
     const payload = { sub: user.id, email: user.email, name: user.name };
     return {
       access_token: this.jwtService.sign(payload),
