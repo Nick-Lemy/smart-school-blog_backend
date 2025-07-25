@@ -54,14 +54,15 @@ model Comment {
 }
 
 model Event {
-  id        Int      @id @default(autoincrement())
-  title     String
-  category  String
-  startDate DateTime
-  endDate   DateTime
-  hostId    Int
-  host      User     @relation(fields: [hostId], references: [id])
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  title       String
+  category    String
+  description String
+  startDate   DateTime
+  endDate     DateTime
+  hostId      Int
+  host        User     @relation(fields: [hostId], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 model AISummary {
