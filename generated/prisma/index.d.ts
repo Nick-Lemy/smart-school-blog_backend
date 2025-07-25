@@ -4799,11 +4799,13 @@ export namespace Prisma {
 
   export type EventAvgAggregateOutputType = {
     id: number | null
+    attendees: number | null
     hostId: number | null
   }
 
   export type EventSumAggregateOutputType = {
     id: number | null
+    attendees: number[]
     hostId: number | null
   }
 
@@ -4836,6 +4838,7 @@ export namespace Prisma {
     description: number
     startDate: number
     endDate: number
+    attendees: number
     hostId: number
     createdAt: number
     _all: number
@@ -4844,11 +4847,13 @@ export namespace Prisma {
 
   export type EventAvgAggregateInputType = {
     id?: true
+    attendees?: true
     hostId?: true
   }
 
   export type EventSumAggregateInputType = {
     id?: true
+    attendees?: true
     hostId?: true
   }
 
@@ -4881,6 +4886,7 @@ export namespace Prisma {
     description?: true
     startDate?: true
     endDate?: true
+    attendees?: true
     hostId?: true
     createdAt?: true
     _all?: true
@@ -4979,6 +4985,7 @@ export namespace Prisma {
     description: string
     startDate: Date
     endDate: Date
+    attendees: number[]
     hostId: number
     createdAt: Date
     _count: EventCountAggregateOutputType | null
@@ -5009,6 +5016,7 @@ export namespace Prisma {
     description?: boolean
     startDate?: boolean
     endDate?: boolean
+    attendees?: boolean
     hostId?: boolean
     createdAt?: boolean
     host?: boolean | UserDefaultArgs<ExtArgs>
@@ -5021,6 +5029,7 @@ export namespace Prisma {
     description?: boolean
     startDate?: boolean
     endDate?: boolean
+    attendees?: boolean
     hostId?: boolean
     createdAt?: boolean
     host?: boolean | UserDefaultArgs<ExtArgs>
@@ -5033,6 +5042,7 @@ export namespace Prisma {
     description?: boolean
     startDate?: boolean
     endDate?: boolean
+    attendees?: boolean
     hostId?: boolean
     createdAt?: boolean
     host?: boolean | UserDefaultArgs<ExtArgs>
@@ -5045,11 +5055,12 @@ export namespace Prisma {
     description?: boolean
     startDate?: boolean
     endDate?: boolean
+    attendees?: boolean
     hostId?: boolean
     createdAt?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "category" | "description" | "startDate" | "endDate" | "hostId" | "createdAt", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "category" | "description" | "startDate" | "endDate" | "attendees" | "hostId" | "createdAt", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     host?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5072,6 +5083,7 @@ export namespace Prisma {
       description: string
       startDate: Date
       endDate: Date
+      attendees: number[]
       hostId: number
       createdAt: Date
     }, ExtArgs["result"]["event"]>
@@ -5504,6 +5516,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Event", 'String'>
     readonly startDate: FieldRef<"Event", 'DateTime'>
     readonly endDate: FieldRef<"Event", 'DateTime'>
+    readonly attendees: FieldRef<"Event", 'Int[]'>
     readonly hostId: FieldRef<"Event", 'Int'>
     readonly createdAt: FieldRef<"Event", 'DateTime'>
   }
@@ -7060,6 +7073,7 @@ export namespace Prisma {
     description: 'description',
     startDate: 'startDate',
     endDate: 'endDate',
+    attendees: 'attendees',
     hostId: 'hostId',
     createdAt: 'createdAt'
   };
@@ -7389,6 +7403,7 @@ export namespace Prisma {
     description?: StringFilter<"Event"> | string
     startDate?: DateTimeFilter<"Event"> | Date | string
     endDate?: DateTimeFilter<"Event"> | Date | string
+    attendees?: IntNullableListFilter<"Event">
     hostId?: IntFilter<"Event"> | number
     createdAt?: DateTimeFilter<"Event"> | Date | string
     host?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -7401,6 +7416,7 @@ export namespace Prisma {
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    attendees?: SortOrder
     hostId?: SortOrder
     createdAt?: SortOrder
     host?: UserOrderByWithRelationInput
@@ -7416,6 +7432,7 @@ export namespace Prisma {
     description?: StringFilter<"Event"> | string
     startDate?: DateTimeFilter<"Event"> | Date | string
     endDate?: DateTimeFilter<"Event"> | Date | string
+    attendees?: IntNullableListFilter<"Event">
     hostId?: IntFilter<"Event"> | number
     createdAt?: DateTimeFilter<"Event"> | Date | string
     host?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -7428,6 +7445,7 @@ export namespace Prisma {
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    attendees?: SortOrder
     hostId?: SortOrder
     createdAt?: SortOrder
     _count?: EventCountOrderByAggregateInput
@@ -7447,6 +7465,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Event"> | string
     startDate?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    attendees?: IntNullableListFilter<"Event">
     hostId?: IntWithAggregatesFilter<"Event"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
   }
@@ -7706,6 +7725,7 @@ export namespace Prisma {
     description: string
     startDate: Date | string
     endDate: Date | string
+    attendees?: EventCreateattendeesInput | number[]
     createdAt?: Date | string
     host: UserCreateNestedOneWithoutEventsInput
   }
@@ -7717,6 +7737,7 @@ export namespace Prisma {
     description: string
     startDate: Date | string
     endDate: Date | string
+    attendees?: EventCreateattendeesInput | number[]
     hostId: number
     createdAt?: Date | string
   }
@@ -7727,6 +7748,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: EventUpdateattendeesInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     host?: UserUpdateOneRequiredWithoutEventsNestedInput
   }
@@ -7738,6 +7760,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: EventUpdateattendeesInput | number[]
     hostId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7749,6 +7772,7 @@ export namespace Prisma {
     description: string
     startDate: Date | string
     endDate: Date | string
+    attendees?: EventCreateattendeesInput | number[]
     hostId: number
     createdAt?: Date | string
   }
@@ -7759,6 +7783,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: EventUpdateattendeesInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7769,6 +7794,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: EventUpdateattendeesInput | number[]
     hostId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8089,6 +8115,14 @@ export namespace Prisma {
     authorId?: SortOrder
   }
 
+  export type IntNullableListFilter<$PrismaModel = never> = {
+    equals?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    has?: number | IntFieldRefInput<$PrismaModel> | null
+    hasEvery?: number[] | ListIntFieldRefInput<$PrismaModel>
+    hasSome?: number[] | ListIntFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type EventCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -8096,12 +8130,14 @@ export namespace Prisma {
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    attendees?: SortOrder
     hostId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type EventAvgOrderByAggregateInput = {
     id?: SortOrder
+    attendees?: SortOrder
     hostId?: SortOrder
   }
 
@@ -8129,6 +8165,7 @@ export namespace Prisma {
 
   export type EventSumOrderByAggregateInput = {
     id?: SortOrder
+    attendees?: SortOrder
     hostId?: SortOrder
   }
 
@@ -8429,10 +8466,19 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsInput, UserUpdateWithoutCommentsInput>, UserUncheckedUpdateWithoutCommentsInput>
   }
 
+  export type EventCreateattendeesInput = {
+    set: number[]
+  }
+
   export type UserCreateNestedOneWithoutEventsInput = {
     create?: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput>
     connectOrCreate?: UserCreateOrConnectWithoutEventsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type EventUpdateattendeesInput = {
+    set?: number[]
+    push?: number | number[]
   }
 
   export type UserUpdateOneRequiredWithoutEventsNestedInput = {
@@ -8614,6 +8660,7 @@ export namespace Prisma {
     description: string
     startDate: Date | string
     endDate: Date | string
+    attendees?: EventCreateattendeesInput | number[]
     createdAt?: Date | string
   }
 
@@ -8624,6 +8671,7 @@ export namespace Prisma {
     description: string
     startDate: Date | string
     endDate: Date | string
+    attendees?: EventCreateattendeesInput | number[]
     createdAt?: Date | string
   }
 
@@ -8713,6 +8761,7 @@ export namespace Prisma {
     description?: StringFilter<"Event"> | string
     startDate?: DateTimeFilter<"Event"> | Date | string
     endDate?: DateTimeFilter<"Event"> | Date | string
+    attendees?: IntNullableListFilter<"Event">
     hostId?: IntFilter<"Event"> | number
     createdAt?: DateTimeFilter<"Event"> | Date | string
   }
@@ -9133,6 +9182,7 @@ export namespace Prisma {
     description: string
     startDate: Date | string
     endDate: Date | string
+    attendees?: EventCreateattendeesInput | number[]
     createdAt?: Date | string
   }
 
@@ -9173,6 +9223,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: EventUpdateattendeesInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9183,6 +9234,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: EventUpdateattendeesInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9193,6 +9245,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: EventUpdateattendeesInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

@@ -32,4 +32,9 @@ export class EventController {
   findByCategory(@Query('category') category: string) {
     return this.eventService.findByCategory(category);
   }
+
+  @Post('register/:id')
+  register(@Param('id') id: string, @Req() req: { user: { userId: number } }) {
+    return this.eventService.register(+id, req.user.userId);
+  }
 }
