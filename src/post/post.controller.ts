@@ -31,6 +31,11 @@ export class PostController {
     return this.postService.findAll();
   }
 
+  @Get('user/:authorId')
+  findByAuthorId(@Param('authorId') authorId: string) {
+    return this.postService.findByAuthorId(+authorId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.postService.findOne(+id);

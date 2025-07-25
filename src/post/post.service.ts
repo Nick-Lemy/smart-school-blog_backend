@@ -25,6 +25,17 @@ export class PostService {
     });
   }
 
+  findByAuthorId(authorId: number) {
+    return this.prisma.post.findMany({
+      where: { authorId },
+      include: {
+        author: true,
+        comments: true,
+        aiSummary: true,
+      },
+    });
+  }
+
   findOne(id: number) {
     return this.prisma.post.findUnique({
       where: { id },
