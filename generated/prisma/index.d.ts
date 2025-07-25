@@ -4811,6 +4811,7 @@ export namespace Prisma {
     id: number | null
     title: string | null
     category: string | null
+    description: string | null
     startDate: Date | null
     endDate: Date | null
     hostId: number | null
@@ -4821,6 +4822,7 @@ export namespace Prisma {
     id: number | null
     title: string | null
     category: string | null
+    description: string | null
     startDate: Date | null
     endDate: Date | null
     hostId: number | null
@@ -4831,6 +4833,7 @@ export namespace Prisma {
     id: number
     title: number
     category: number
+    description: number
     startDate: number
     endDate: number
     hostId: number
@@ -4853,6 +4856,7 @@ export namespace Prisma {
     id?: true
     title?: true
     category?: true
+    description?: true
     startDate?: true
     endDate?: true
     hostId?: true
@@ -4863,6 +4867,7 @@ export namespace Prisma {
     id?: true
     title?: true
     category?: true
+    description?: true
     startDate?: true
     endDate?: true
     hostId?: true
@@ -4873,6 +4878,7 @@ export namespace Prisma {
     id?: true
     title?: true
     category?: true
+    description?: true
     startDate?: true
     endDate?: true
     hostId?: true
@@ -4970,6 +4976,7 @@ export namespace Prisma {
     id: number
     title: string
     category: string
+    description: string
     startDate: Date
     endDate: Date
     hostId: number
@@ -4999,6 +5006,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     category?: boolean
+    description?: boolean
     startDate?: boolean
     endDate?: boolean
     hostId?: boolean
@@ -5010,6 +5018,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     category?: boolean
+    description?: boolean
     startDate?: boolean
     endDate?: boolean
     hostId?: boolean
@@ -5021,6 +5030,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     category?: boolean
+    description?: boolean
     startDate?: boolean
     endDate?: boolean
     hostId?: boolean
@@ -5032,13 +5042,14 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     category?: boolean
+    description?: boolean
     startDate?: boolean
     endDate?: boolean
     hostId?: boolean
     createdAt?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "category" | "startDate" | "endDate" | "hostId" | "createdAt", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "category" | "description" | "startDate" | "endDate" | "hostId" | "createdAt", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     host?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5058,6 +5069,7 @@ export namespace Prisma {
       id: number
       title: string
       category: string
+      description: string
       startDate: Date
       endDate: Date
       hostId: number
@@ -5489,6 +5501,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Event", 'Int'>
     readonly title: FieldRef<"Event", 'String'>
     readonly category: FieldRef<"Event", 'String'>
+    readonly description: FieldRef<"Event", 'String'>
     readonly startDate: FieldRef<"Event", 'DateTime'>
     readonly endDate: FieldRef<"Event", 'DateTime'>
     readonly hostId: FieldRef<"Event", 'Int'>
@@ -7044,6 +7057,7 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     category: 'category',
+    description: 'description',
     startDate: 'startDate',
     endDate: 'endDate',
     hostId: 'hostId',
@@ -7372,6 +7386,7 @@ export namespace Prisma {
     id?: IntFilter<"Event"> | number
     title?: StringFilter<"Event"> | string
     category?: StringFilter<"Event"> | string
+    description?: StringFilter<"Event"> | string
     startDate?: DateTimeFilter<"Event"> | Date | string
     endDate?: DateTimeFilter<"Event"> | Date | string
     hostId?: IntFilter<"Event"> | number
@@ -7383,6 +7398,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     category?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     hostId?: SortOrder
@@ -7397,6 +7413,7 @@ export namespace Prisma {
     NOT?: EventWhereInput | EventWhereInput[]
     title?: StringFilter<"Event"> | string
     category?: StringFilter<"Event"> | string
+    description?: StringFilter<"Event"> | string
     startDate?: DateTimeFilter<"Event"> | Date | string
     endDate?: DateTimeFilter<"Event"> | Date | string
     hostId?: IntFilter<"Event"> | number
@@ -7408,6 +7425,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     category?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     hostId?: SortOrder
@@ -7426,6 +7444,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Event"> | number
     title?: StringWithAggregatesFilter<"Event"> | string
     category?: StringWithAggregatesFilter<"Event"> | string
+    description?: StringWithAggregatesFilter<"Event"> | string
     startDate?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     hostId?: IntWithAggregatesFilter<"Event"> | number
@@ -7684,6 +7703,7 @@ export namespace Prisma {
   export type EventCreateInput = {
     title: string
     category: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     createdAt?: Date | string
@@ -7694,6 +7714,7 @@ export namespace Prisma {
     id?: number
     title: string
     category: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     hostId: number
@@ -7703,6 +7724,7 @@ export namespace Prisma {
   export type EventUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7713,6 +7735,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hostId?: IntFieldUpdateOperationsInput | number
@@ -7723,6 +7746,7 @@ export namespace Prisma {
     id?: number
     title: string
     category: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     hostId: number
@@ -7732,6 +7756,7 @@ export namespace Prisma {
   export type EventUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7741,6 +7766,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hostId?: IntFieldUpdateOperationsInput | number
@@ -8067,6 +8093,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     category?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     hostId?: SortOrder
@@ -8082,6 +8109,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     category?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     hostId?: SortOrder
@@ -8092,6 +8120,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     category?: SortOrder
+    description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     hostId?: SortOrder
@@ -8582,6 +8611,7 @@ export namespace Prisma {
   export type EventCreateWithoutHostInput = {
     title: string
     category: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     createdAt?: Date | string
@@ -8591,6 +8621,7 @@ export namespace Prisma {
     id?: number
     title: string
     category: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     createdAt?: Date | string
@@ -8679,6 +8710,7 @@ export namespace Prisma {
     id?: IntFilter<"Event"> | number
     title?: StringFilter<"Event"> | string
     category?: StringFilter<"Event"> | string
+    description?: StringFilter<"Event"> | string
     startDate?: DateTimeFilter<"Event"> | Date | string
     endDate?: DateTimeFilter<"Event"> | Date | string
     hostId?: IntFilter<"Event"> | number
@@ -9098,6 +9130,7 @@ export namespace Prisma {
     id?: number
     title: string
     category: string
+    description: string
     startDate: Date | string
     endDate: Date | string
     createdAt?: Date | string
@@ -9137,6 +9170,7 @@ export namespace Prisma {
   export type EventUpdateWithoutHostInput = {
     title?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9146,6 +9180,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9155,6 +9190,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
