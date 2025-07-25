@@ -33,11 +33,14 @@ export class UserService {
   }
 
   findOne(id: number) {
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({
+      where: { id },
+      omit: { password: true },
+    });
   }
 
   findAll() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({ omit: { password: true } });
   }
 
   async unVerify(id: number) {
