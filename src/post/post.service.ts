@@ -10,6 +10,7 @@ export class PostService {
     return this.prisma.post.create({
       data: {
         ...dto,
+        likes: [],
         authorId,
       },
     });
@@ -57,6 +58,15 @@ export class PostService {
   delete(id: number) {
     return this.prisma.post.delete({
       where: { id },
+    });
+  }
+  async like(id: number, userId: number) {
+    const post = await this.findOne(id);
+    if (!post) return;
+    const likes = post.likes as number[];
+    return this.prisma.post.update({
+      where: { id },
+      data: { likes: [...likes, userId] },
     });
   }
 }

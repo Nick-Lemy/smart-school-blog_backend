@@ -76,4 +76,10 @@ export class PostController {
 
     return this.postService.delete(+id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('like/:id')
+  like(@Param('id') id: string, @Req() req: { user: { userId: number } }) {
+    return this.postService.like(+id, req.user.userId);
+  }
 }

@@ -12,6 +12,7 @@ export class EventService {
     return this.prisma.event.create({
       data: {
         ...dto,
+        attendees: [],
         hostId,
       },
     });
