@@ -27,7 +27,7 @@ export class CommentController {
     return this.commentService.create(req.user.userId, dto);
   }
 
-  @Get(':postId')
+  @Get('/post/:postId')
   findByPostId(@Param('postId') postId: string) {
     return this.commentService.findByPostId(+postId);
   }
