@@ -47,7 +47,7 @@ export class EventService {
     const event = await this.findOne(id);
     if (!event) return;
 
-    const attendees = event.attendees as number[];
+    const attendees = event.attendees;
 
     return this.prisma.event.update({
       where: { id },
