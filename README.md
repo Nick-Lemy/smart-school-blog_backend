@@ -1,41 +1,62 @@
-# 📘 API Documentation
+# Smart School Blog Backend API Documentation
 
-This is the API documentation for the Smart School Blog backend that supports user registration, login with JWT, and authenticated user management.
+Complete API documentation for the Smart School Blog backend - a NestJS application with JWT authentication, posts, comments, events, and user management.
 
 ---
 
-## 🔐 Authentication
+## Quick Start
+
+1. Install dependencies: `npm install`
+2. Set up your `.env` file with `DATABASE_URL`
+3. Run Prisma migrations: `npx prisma migrate dev`
+4. Start the server: `npm run start:dev`
+
+---
+
+## Authentication Endpoints
 
 ### POST `/auth/register`
 
 Register a new user.
 
-- **Request Body:**
+**Request Body:**
 
 ```json
 {
+  "name": "John Doe",
   "email": "user@example.com",
   "password": "yourPassword123",
-  "name": "John Doe"
+  "role": "student",
+  "languagePreference": "Eng",
+  "isVerified": false
 }
 ```
 
-- **Response:**
+**Validation:**
+
+- All fields required
+- `email` must be valid email format
+- `languagePreference` must be "Fr" or "Eng"
+
+**Response:**
 
 ```json
 {
   "id": 1,
-  "email": "user@example.com",
   "name": "John Doe",
-  "password": "$2b$10$hashedPassword"
+  "email": "user@example.com",
+  "role": "student",
+  "languagePreference": "Eng",
+  "isVerified": false,
+  "createdAt": "2025-07-31T10:00:00.000Z"
 }
 ```
 
 ### POST `/auth/login`
 
-Login and get an access token.
+Login and get JWT access token.
 
-- **Request Body:**
+**Request Body:**
 
 ```json
 {
@@ -44,64 +65,51 @@ Login and get an access token.
 }
 ```
 
-- **Response:**
+**Response:**
 
 ```json
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
-## 👤 Users
+---
+
+## User Endpoints
 
 ### POST `/users`
 
-Create a user manually (admin use or testing).
+Create a new user (alternative to register).
 
-- **Request Body:**
-
-```json
-{
-  "email": "another@example.com",
-  "password": "pass123",
-  "name": "Jane Doe"
-}
-```
-
-- **Response:**
-
-```json
-{
-  "id": 1,
-  "email": "user@example.com",
-  "name": "John Doe",
-  "password": "$2b$10$hashedPassword"
-}
-```
+**Request Body:** Same as `/auth/register`
 
 ### GET `/users`
 
-Get a list of all users.
+Get all users.
 _Requires JWT token_
 
-- **Response:**
+**Response:**
 
 ```json
 [
   {
     "id": 1,
+    "name": "John Doe",
     "email": "user@example.com",
-    "name": "John Doe"
+    "role": "student",
+    "languagePreference": "Eng",
+    "isVerified": false,
+    "createdAt": "2025-07-31T10:00:00.000Z"
   }
 ]
 ```
 
 ### GET `/users/me`
 
-Get the profile of the currently authenticated user.
+Get current user profile.
 _Requires JWT token_
 
-- **Response:**
+**Response:**
 
 ```json
 {
@@ -112,46 +120,371 @@ _Requires JWT token_
 
 ### GET `/users/:id`
 
-Get one user by ID.
+Get user by ID.
 _Requires JWT token_
 
-- **Response:**
+**URL Parameters:**
 
-```json
-{
-  "id": 1,
-  "email": "user@example.com",
-  "name": "John Doe"
-}
-```
+- `id` (number) - User ID
 
 ### PATCH `/users/me`
 
-Update the currently authenticated user's info.
+Update current user profile.
 _Requires JWT token_
 
-- **Request Body:**
+**Request Body (all optional):**
 
 ```json
 {
-  "name": "Johnny Updated"
+  "name": "Johnny Updated",
+  "email": "newemail@example.com",
+  "role": "teacher",
+  "languagePreference": "Fr",
+  "isVerified": true
 }
 ```
 
-- **Response:**
+---
+
+## Post Endpoints
+
+### POST `/posts`
+
+Create a new post.
+_Requires JWT token_
+
+**Request Body:**
 
 ```json
 {
-  "id": 1,
-  "email": "user@example.com",
-  "name": "Johnny Updated"
+  "title": "My First Post",
+  "content": "This is the content of my post..."
 }
 ```
 
-## Authorization Header
+**Validation:**
 
-For all protected routes, set the header:
+- Both fields required and non-empty
 
-```yml
-Authorization: Bearer <access_token>
+### GET `/posts`
+
+Get all posts.
+
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "title": "My First Post",
+    "content": "This is the content...",
+    "likes": [2, 3, 5],
+    "authorId": 1,
+    "createdAt": "2025-07-31T10:00:00.000Z",
+    "author": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "user@example.com"
+    }
+  }
+]
+```
+
+### GET `/posts/user/:authorId`
+
+Get posts by specific author.
+
+**URL Parameters:**
+
+- `authorId` (number) - Author's user ID
+
+### GET `/posts/:id`
+
+Get single post by ID.
+
+**URL Parameters:**
+
+- `id` (number) - Post ID
+
+### PATCH `/posts/:id`
+
+Update a post.
+_Requires JWT token_
+
+**URL Parameters:**
+
+- `id` (number) - Post ID
+
+**Request Body (both optional):**
+
+```json
+{
+  "title": "Updated Title",
+  "content": "Updated content..."
+}
+```
+
+**Conditions:**
+
+- Post must exist (404 if not found)
+- User must be the post author (403 if not owner)
+
+### DELETE `/posts/:id`
+
+Delete a post.
+_Requires JWT token_
+
+**URL Parameters:**
+
+- `id` (number) - Post ID
+
+**Conditions:**
+
+- Post must exist (404 if not found)
+- User must be the post author (403 if not owner)
+
+### POST `/posts/like/:id`
+
+Like/unlike a post.
+_Requires JWT token_
+
+**URL Parameters:**
+
+- `id` (number) - Post ID
+
+---
+
+## Comment Endpoints
+
+### POST `/comment`
+
+Create a comment on a post.
+_Requires JWT token_
+
+**Request Body:**
+
+```json
+{
+  "content": "Great post!",
+  "postId": 1
+}
+```
+
+**Validation:**
+
+- Both fields required
+
+### GET `/comment/post/:postId`
+
+Get all comments for a specific post.
+
+**URL Parameters:**
+
+- `postId` (number) - Post ID
+
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "content": "Great post!",
+    "postId": 1,
+    "authorId": 2,
+    "createdAt": "2025-07-31T10:30:00.000Z",
+    "author": {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane@example.com"
+    }
+  }
+]
+```
+
+### DELETE `/comment/:id`
+
+Delete a comment.
+_Requires JWT token_
+
+**URL Parameters:**
+
+- `id` (number) - Comment ID
+
+**Conditions:**
+
+- Comment must exist (404 if not found)
+- User must be the comment author (403 if not owner)
+
+---
+
+## Event Endpoints
+
+### POST `/event`
+
+Create a new event.
+_Requires JWT token_
+
+**Request Body:**
+
+```json
+{
+  "title": "School Science Fair",
+  "category": "Academic",
+  "description": "Annual science fair event...",
+  "startDate": "2025-08-15T09:00:00.000Z",
+  "endDate": "2025-08-15T17:00:00.000Z"
+}
+```
+
+**Validation:**
+
+- `title`, `category` required and non-empty
+- Dates must be in ISO format
+
+### GET `/event`
+
+Get all events.
+
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "title": "School Science Fair",
+    "category": "Academic",
+    "description": "Annual science fair event...",
+    "startDate": "2025-08-15T09:00:00.000Z",
+    "endDate": "2025-08-15T17:00:00.000Z",
+    "attendees": [2, 3, 5],
+    "hostId": 1,
+    "createdAt": "2025-07-31T10:00:00.000Z",
+    "host": {
+      "id": 1,
+      "name": "John Doe"
+    }
+  }
+]
+```
+
+### GET `/event/:id`
+
+Get single event by ID.
+
+**URL Parameters:**
+
+- `id` (number) - Event ID
+
+### GET `/event/user/:hostId`
+
+Get events by specific host.
+
+**URL Parameters:**
+
+- `hostId` (number) - Host's user ID
+
+### GET `/event/category?category=:category`
+
+Get events by category.
+
+**Query Parameters:**
+
+- `category` (string) - Event category
+
+**Example:** `/event/category?category=Academic`
+
+### POST `/event/register/:id`
+
+Register for an event.
+_Requires JWT token_
+
+**URL Parameters:**
+
+- `id` (number) - Event ID
+
+---
+
+## General Endpoints
+
+### GET `/`
+
+Health check endpoint.
+
+**Response:**
+
+```json
+"Hello World!"
+```
+
+---
+
+## Authentication
+
+For all protected routes (marked with ), include the JWT token in the Authorization header:
+
+```yaml
+Authorization: Bearer <your_jwt_token>
+```
+
+## Data Models
+
+### User
+
+- `id`: number (auto-increment)
+- `name`: string
+- `email`: string (unique)
+- `password`: string (hashed)
+- `role`: string
+- `languagePreference`: "Fr" | "Eng"
+- `isVerified`: boolean
+- `createdAt`: DateTime
+
+### Post
+
+- `id`: number (auto-increment)
+- `title`: string
+- `content`: string
+- `likes`: number[] (array of user IDs)
+- `authorId`: number (foreign key)
+- `createdAt`: DateTime
+
+### Comment
+
+- `id`: number (auto-increment)
+- `content`: string
+- `postId`: number (foreign key)
+- `authorId`: number (foreign key)
+- `createdAt`: DateTime
+
+### Event
+
+- `id`: number (auto-increment)
+- `title`: string
+- `category`: string
+- `description`: string
+- `startDate`: DateTime
+- `endDate`: DateTime
+- `attendees`: number[] (array of user IDs)
+- `hostId`: number (foreign key)
+- `createdAt`: DateTime
+
+---
+
+## Error Handling
+
+- **400 Bad Request**: Invalid request body or validation errors
+- **401 Unauthorized**: Missing or invalid JWT token
+- **403 Forbidden**: User doesn't have permission for this action
+- **404 Not Found**: Resource not found
+- **500 Internal Server Error**: Server error
+
+---
+
+## Environment Variables
+
+Create a `.env` file with:
+
+```env
+DATABASE_URL="postgresql://username:password@localhost:5432/smart_school_blog"
+JWT_SECRET="your-super-secret-jwt-key"
 ```
