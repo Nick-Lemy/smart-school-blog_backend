@@ -1,5 +1,5 @@
 // src/users/dto/create-user.dto.ts
-import { IsEmail, IsString, IsEnum, IsBoolean } from 'class-validator';
+import { IsEmail, IsString, IsEnum } from 'class-validator';
 import { Language } from 'generated/prisma';
 
 export class CreateUserDto {
@@ -17,7 +17,4 @@ export class CreateUserDto {
 
   @IsEnum(Language)
   languagePreference: Language;
-
-  @IsBoolean()
-  isVerified: boolean;
 }
