@@ -77,6 +77,11 @@ export class PostController {
     return this.postService.delete(+id);
   }
 
+  @Get(':id/likes')
+  findLikers(@Param('id') id: string) {
+    return this.postService.findLikers(+id);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post('like/:id')
   async like(

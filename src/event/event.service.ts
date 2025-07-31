@@ -22,6 +22,31 @@ export class EventService {
     return this.prisma.event.findMany();
   }
 
+  async findAttendees(eventId: number) {
+    const event = await this.findOne(eventId);
+    if (!event) return null;
+    const attendees: {
+      id: number;
+      name: string;
+      email: string;
+      role: string;
+    }[] = [];
+    for (const userId of event.attendees) {
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+      });
+      if (user) {
+        attendees.push({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        });
+      }
+    }
+    return attendees;
+  }
+
   async findOne(id: number): Promise<Event | null> {
     return this.prisma.event.findUnique({ where: { id } });
   }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Language } from 'generated/prisma';
 
 @Injectable()
 export class PostService {
@@ -14,6 +15,31 @@ export class PostService {
         authorId,
       },
     });
+  }
+
+  async findLikers(postId: number) {
+    const post = await this.findOne(postId);
+    const likers: {
+      id: number;
+      name: string;
+      email: string;
+      role: string;
+    }[] = [];
+    if (!post) return null;
+    for (const userId of post.likes) {
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+      });
+      if (user) {
+        likers.push({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        });
+      }
+    }
+    return likers;
   }
 
   findAll() {
@@ -63,7 +89,7 @@ export class PostService {
   async like(id: number, userId: number) {
     const post = await this.findOne(id);
     if (!post) return;
-    const likes = post.likes as number[];
+    const likes = post.likes;
     return this.prisma.post.update({
       where: { id },
       data: { likes: [...likes, userId] },

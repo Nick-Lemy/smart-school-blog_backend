@@ -77,4 +77,10 @@ export class EventController {
     }
     return this.eventService.delete(+id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/attendees')
+  findAttendees(@Param('id') id: string) {
+    return this.eventService.findAttendees(+id);
+  }
 }
