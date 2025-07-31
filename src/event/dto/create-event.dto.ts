@@ -13,6 +13,10 @@ export class CreateEventDto {
   @IsNotEmpty()
   location: string;
 
+  @IsString()
+  @IsNotEmpty()
+  coverImage: string;
+
   @IsNotEmpty()
   @IsDateString()
   startDate: string;
