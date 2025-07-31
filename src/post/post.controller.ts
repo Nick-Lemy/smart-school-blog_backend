@@ -108,6 +108,6 @@ export class PostController {
     if (!summary) {
       throw new NotFoundException('Post not found');
     }
-    return summary;
+    return { content: summary };
   }
 }
