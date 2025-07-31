@@ -30,8 +30,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getProfile(@Req() req: { user: { userId: number; email: string } }) {
-    console.log('req.user:', req.user);
-    return req.user;
+    return this.userService.findOne(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
