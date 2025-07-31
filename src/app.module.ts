@@ -9,7 +9,14 @@ import { CommentModule } from './comment/comment.module';
 import { EventModule } from './event/event.module';
 
 @Module({
-  imports: [PrismaModule, UserModule, AuthModule, PostModule, CommentModule, EventModule],
+  imports: [
+    PrismaModule,
+    UserModule,
+    AuthModule,
+    PostModule,
+    CommentModule,
+    EventModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
