@@ -81,7 +81,19 @@ Login and get JWT access token.
 
 Create a new user (alternative to register).
 
-**Request Body:** Same as `/auth/register`
+**Request Body:**
+
+```json
+{
+  "name": "John Doe",
+  "email": "user@example.com",
+  "password": "yourPassword123",
+  "role": "student",
+  "languagePreference": "Eng"
+}
+```
+
+**Note:** The `isVerified` field is not required for user creation (only for registration)
 
 ### GET `/users`
 
@@ -330,6 +342,8 @@ _Requires JWT token_
 {
   "title": "School Science Fair",
   "category": "Academic",
+  "location": "Main Auditorium",
+  "coverImage": "https://example.com/image.jpg",
   "description": "Annual science fair event...",
   "startDate": "2025-08-15T09:00:00.000Z",
   "endDate": "2025-08-15T17:00:00.000Z"
@@ -338,12 +352,13 @@ _Requires JWT token_
 
 **Validation:**
 
-- `title`, `category` required and non-empty
+- All fields are required and non-empty
 - Dates must be in ISO format
 
 ### GET `/event`
 
 Get all events.
+_Requires JWT token_
 
 **Response:**
 
@@ -354,6 +369,8 @@ Get all events.
     "title": "School Science Fair",
     "category": "Academic",
     "description": "Annual science fair event...",
+    "location": "Main Auditorium",
+    "coverImage": "https://example.com/image.jpg",
     "startDate": "2025-08-15T09:00:00.000Z",
     "endDate": "2025-08-15T17:00:00.000Z",
     "attendees": [2, 3, 5],
@@ -370,6 +387,7 @@ Get all events.
 ### GET `/event/:id`
 
 Get single event by ID.
+_Requires JWT token_
 
 **URL Parameters:**
 
@@ -378,6 +396,7 @@ Get single event by ID.
 ### GET `/event/user/:hostId`
 
 Get events by specific host.
+_Requires JWT token_
 
 **URL Parameters:**
 
@@ -386,6 +405,7 @@ Get events by specific host.
 ### GET `/event/category?category=:category`
 
 Get events by category.
+_Requires JWT token_
 
 **Query Parameters:**
 
@@ -462,6 +482,8 @@ Authorization: Bearer <your_jwt_token>
 - `title`: string
 - `category`: string
 - `description`: string
+- `location`: string
+- `coverImage`: string
 - `startDate`: DateTime
 - `endDate`: DateTime
 - `attendees`: number[] (array of user IDs)

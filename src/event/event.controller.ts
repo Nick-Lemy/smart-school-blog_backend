@@ -21,8 +21,6 @@ export class EventController {
     @Body() dto: CreateEventDto,
     @Req() req: { user: { userId: number; email: string } },
   ) {
-    console.log('Creating event for user:', req);
-    // console.log('Event details:', dto);
     return this.eventService.create(req.user.userId, dto);
   }
   @UseGuards(JwtAuthGuard)
