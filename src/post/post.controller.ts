@@ -79,7 +79,17 @@ export class PostController {
 
   @UseGuards(JwtAuthGuard)
   @Post('like/:id')
-  like(@Param('id') id: string, @Req() req: { user: { userId: number } }) {
+  async like(
+    @Param('id') id: string,
+    @Req() req: { user: { userId: number } },
+  ) {
+    const post = await this.postService.findOne(+id);
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+    if (post.likes && post.likes.includes(req.user.userId)) {
+      throw new ForbiddenException('You have already liked this post');
+    }
     return this.postService.like(+id, req.user.userId);
   }
 }
