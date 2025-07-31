@@ -33,11 +33,6 @@ export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
  * 
  */
 export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
-/**
- * Model AISummary
- * 
- */
-export type AISummary = $Result.DefaultSelection<Prisma.$AISummaryPayload>
 
 /**
  * Enums
@@ -220,16 +215,6 @@ export class PrismaClient<
     * ```
     */
   get event(): Prisma.EventDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.aISummary`: Exposes CRUD operations for the **AISummary** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more AISummaries
-    * const aISummaries = await prisma.aISummary.findMany()
-    * ```
-    */
-  get aISummary(): Prisma.AISummaryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -673,8 +658,7 @@ export namespace Prisma {
     User: 'User',
     Post: 'Post',
     Comment: 'Comment',
-    Event: 'Event',
-    AISummary: 'AISummary'
+    Event: 'Event'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -693,7 +677,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "post" | "comment" | "event" | "aISummary"
+      modelProps: "user" | "post" | "comment" | "event"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -993,80 +977,6 @@ export namespace Prisma {
           }
         }
       }
-      AISummary: {
-        payload: Prisma.$AISummaryPayload<ExtArgs>
-        fields: Prisma.AISummaryFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.AISummaryFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.AISummaryFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>
-          }
-          findFirst: {
-            args: Prisma.AISummaryFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.AISummaryFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>
-          }
-          findMany: {
-            args: Prisma.AISummaryFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>[]
-          }
-          create: {
-            args: Prisma.AISummaryCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>
-          }
-          createMany: {
-            args: Prisma.AISummaryCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.AISummaryCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>[]
-          }
-          delete: {
-            args: Prisma.AISummaryDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>
-          }
-          update: {
-            args: Prisma.AISummaryUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>
-          }
-          deleteMany: {
-            args: Prisma.AISummaryDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.AISummaryUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.AISummaryUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>[]
-          }
-          upsert: {
-            args: Prisma.AISummaryUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AISummaryPayload>
-          }
-          aggregate: {
-            args: Prisma.AISummaryAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAISummary>
-          }
-          groupBy: {
-            args: Prisma.AISummaryGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AISummaryGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.AISummaryCountArgs<ExtArgs>
-            result: $Utils.Optional<AISummaryCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1163,7 +1073,6 @@ export namespace Prisma {
     post?: PostOmit
     comment?: CommentOmit
     event?: EventOmit
-    aISummary?: AISummaryOmit
   }
 
   /* Types for Logging */
@@ -2570,6 +2479,7 @@ export namespace Prisma {
     title: string | null
     content: string | null
     authorId: number | null
+    aiSummary: string | null
     createdAt: Date | null
   }
 
@@ -2578,6 +2488,7 @@ export namespace Prisma {
     title: string | null
     content: string | null
     authorId: number | null
+    aiSummary: string | null
     createdAt: Date | null
   }
 
@@ -2587,6 +2498,7 @@ export namespace Prisma {
     content: number
     likes: number
     authorId: number
+    aiSummary: number
     createdAt: number
     _all: number
   }
@@ -2609,6 +2521,7 @@ export namespace Prisma {
     title?: true
     content?: true
     authorId?: true
+    aiSummary?: true
     createdAt?: true
   }
 
@@ -2617,6 +2530,7 @@ export namespace Prisma {
     title?: true
     content?: true
     authorId?: true
+    aiSummary?: true
     createdAt?: true
   }
 
@@ -2626,6 +2540,7 @@ export namespace Prisma {
     content?: true
     likes?: true
     authorId?: true
+    aiSummary?: true
     createdAt?: true
     _all?: true
   }
@@ -2722,6 +2637,7 @@ export namespace Prisma {
     content: string
     likes: number[]
     authorId: number
+    aiSummary: string
     createdAt: Date
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
@@ -2750,9 +2666,9 @@ export namespace Prisma {
     content?: boolean
     likes?: boolean
     authorId?: boolean
+    aiSummary?: boolean
     createdAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
-    aiSummary?: boolean | Post$aiSummaryArgs<ExtArgs>
     comments?: boolean | Post$commentsArgs<ExtArgs>
     _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
@@ -2763,6 +2679,7 @@ export namespace Prisma {
     content?: boolean
     likes?: boolean
     authorId?: boolean
+    aiSummary?: boolean
     createdAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
@@ -2773,6 +2690,7 @@ export namespace Prisma {
     content?: boolean
     likes?: boolean
     authorId?: boolean
+    aiSummary?: boolean
     createdAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
@@ -2783,13 +2701,13 @@ export namespace Prisma {
     content?: boolean
     likes?: boolean
     authorId?: boolean
+    aiSummary?: boolean
     createdAt?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "likes" | "authorId" | "createdAt", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "likes" | "authorId" | "aiSummary" | "createdAt", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
-    aiSummary?: boolean | Post$aiSummaryArgs<ExtArgs>
     comments?: boolean | Post$commentsArgs<ExtArgs>
     _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2804,7 +2722,6 @@ export namespace Prisma {
     name: "Post"
     objects: {
       author: Prisma.$UserPayload<ExtArgs>
-      aiSummary: Prisma.$AISummaryPayload<ExtArgs> | null
       comments: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2813,6 +2730,7 @@ export namespace Prisma {
       content: string
       likes: number[]
       authorId: number
+      aiSummary: string
       createdAt: Date
     }, ExtArgs["result"]["post"]>
     composites: {}
@@ -3209,7 +3127,6 @@ export namespace Prisma {
   export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    aiSummary<T extends Post$aiSummaryArgs<ExtArgs> = {}>(args?: Subset<T, Post$aiSummaryArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     comments<T extends Post$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Post$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3245,6 +3162,7 @@ export namespace Prisma {
     readonly content: FieldRef<"Post", 'String'>
     readonly likes: FieldRef<"Post", 'Int[]'>
     readonly authorId: FieldRef<"Post", 'Int'>
+    readonly aiSummary: FieldRef<"Post", 'String'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
   }
     
@@ -3639,25 +3557,6 @@ export namespace Prisma {
      * Limit how many Posts to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Post.aiSummary
-   */
-  export type Post$aiSummaryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    where?: AISummaryWhereInput
   }
 
   /**
@@ -5986,1089 +5885,6 @@ export namespace Prisma {
 
 
   /**
-   * Model AISummary
-   */
-
-  export type AggregateAISummary = {
-    _count: AISummaryCountAggregateOutputType | null
-    _avg: AISummaryAvgAggregateOutputType | null
-    _sum: AISummarySumAggregateOutputType | null
-    _min: AISummaryMinAggregateOutputType | null
-    _max: AISummaryMaxAggregateOutputType | null
-  }
-
-  export type AISummaryAvgAggregateOutputType = {
-    id: number | null
-    postId: number | null
-  }
-
-  export type AISummarySumAggregateOutputType = {
-    id: number | null
-    postId: number | null
-  }
-
-  export type AISummaryMinAggregateOutputType = {
-    id: number | null
-    content: string | null
-    generatedAt: Date | null
-    postId: number | null
-  }
-
-  export type AISummaryMaxAggregateOutputType = {
-    id: number | null
-    content: string | null
-    generatedAt: Date | null
-    postId: number | null
-  }
-
-  export type AISummaryCountAggregateOutputType = {
-    id: number
-    content: number
-    generatedAt: number
-    postId: number
-    _all: number
-  }
-
-
-  export type AISummaryAvgAggregateInputType = {
-    id?: true
-    postId?: true
-  }
-
-  export type AISummarySumAggregateInputType = {
-    id?: true
-    postId?: true
-  }
-
-  export type AISummaryMinAggregateInputType = {
-    id?: true
-    content?: true
-    generatedAt?: true
-    postId?: true
-  }
-
-  export type AISummaryMaxAggregateInputType = {
-    id?: true
-    content?: true
-    generatedAt?: true
-    postId?: true
-  }
-
-  export type AISummaryCountAggregateInputType = {
-    id?: true
-    content?: true
-    generatedAt?: true
-    postId?: true
-    _all?: true
-  }
-
-  export type AISummaryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AISummary to aggregate.
-     */
-    where?: AISummaryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AISummaries to fetch.
-     */
-    orderBy?: AISummaryOrderByWithRelationInput | AISummaryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AISummaryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AISummaries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AISummaries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned AISummaries
-    **/
-    _count?: true | AISummaryCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: AISummaryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AISummarySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AISummaryMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AISummaryMaxAggregateInputType
-  }
-
-  export type GetAISummaryAggregateType<T extends AISummaryAggregateArgs> = {
-        [P in keyof T & keyof AggregateAISummary]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAISummary[P]>
-      : GetScalarType<T[P], AggregateAISummary[P]>
-  }
-
-
-
-
-  export type AISummaryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AISummaryWhereInput
-    orderBy?: AISummaryOrderByWithAggregationInput | AISummaryOrderByWithAggregationInput[]
-    by: AISummaryScalarFieldEnum[] | AISummaryScalarFieldEnum
-    having?: AISummaryScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AISummaryCountAggregateInputType | true
-    _avg?: AISummaryAvgAggregateInputType
-    _sum?: AISummarySumAggregateInputType
-    _min?: AISummaryMinAggregateInputType
-    _max?: AISummaryMaxAggregateInputType
-  }
-
-  export type AISummaryGroupByOutputType = {
-    id: number
-    content: string
-    generatedAt: Date
-    postId: number
-    _count: AISummaryCountAggregateOutputType | null
-    _avg: AISummaryAvgAggregateOutputType | null
-    _sum: AISummarySumAggregateOutputType | null
-    _min: AISummaryMinAggregateOutputType | null
-    _max: AISummaryMaxAggregateOutputType | null
-  }
-
-  type GetAISummaryGroupByPayload<T extends AISummaryGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AISummaryGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AISummaryGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AISummaryGroupByOutputType[P]>
-            : GetScalarType<T[P], AISummaryGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AISummarySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    content?: boolean
-    generatedAt?: boolean
-    postId?: boolean
-    post?: boolean | PostDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["aISummary"]>
-
-  export type AISummarySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    content?: boolean
-    generatedAt?: boolean
-    postId?: boolean
-    post?: boolean | PostDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["aISummary"]>
-
-  export type AISummarySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    content?: boolean
-    generatedAt?: boolean
-    postId?: boolean
-    post?: boolean | PostDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["aISummary"]>
-
-  export type AISummarySelectScalar = {
-    id?: boolean
-    content?: boolean
-    generatedAt?: boolean
-    postId?: boolean
-  }
-
-  export type AISummaryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "generatedAt" | "postId", ExtArgs["result"]["aISummary"]>
-  export type AISummaryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    post?: boolean | PostDefaultArgs<ExtArgs>
-  }
-  export type AISummaryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    post?: boolean | PostDefaultArgs<ExtArgs>
-  }
-  export type AISummaryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    post?: boolean | PostDefaultArgs<ExtArgs>
-  }
-
-  export type $AISummaryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AISummary"
-    objects: {
-      post: Prisma.$PostPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      content: string
-      generatedAt: Date
-      postId: number
-    }, ExtArgs["result"]["aISummary"]>
-    composites: {}
-  }
-
-  type AISummaryGetPayload<S extends boolean | null | undefined | AISummaryDefaultArgs> = $Result.GetResult<Prisma.$AISummaryPayload, S>
-
-  type AISummaryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AISummaryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AISummaryCountAggregateInputType | true
-    }
-
-  export interface AISummaryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AISummary'], meta: { name: 'AISummary' } }
-    /**
-     * Find zero or one AISummary that matches the filter.
-     * @param {AISummaryFindUniqueArgs} args - Arguments to find a AISummary
-     * @example
-     * // Get one AISummary
-     * const aISummary = await prisma.aISummary.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends AISummaryFindUniqueArgs>(args: SelectSubset<T, AISummaryFindUniqueArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one AISummary that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {AISummaryFindUniqueOrThrowArgs} args - Arguments to find a AISummary
-     * @example
-     * // Get one AISummary
-     * const aISummary = await prisma.aISummary.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends AISummaryFindUniqueOrThrowArgs>(args: SelectSubset<T, AISummaryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AISummary that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AISummaryFindFirstArgs} args - Arguments to find a AISummary
-     * @example
-     * // Get one AISummary
-     * const aISummary = await prisma.aISummary.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends AISummaryFindFirstArgs>(args?: SelectSubset<T, AISummaryFindFirstArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AISummary that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AISummaryFindFirstOrThrowArgs} args - Arguments to find a AISummary
-     * @example
-     * // Get one AISummary
-     * const aISummary = await prisma.aISummary.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends AISummaryFindFirstOrThrowArgs>(args?: SelectSubset<T, AISummaryFindFirstOrThrowArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more AISummaries that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AISummaryFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all AISummaries
-     * const aISummaries = await prisma.aISummary.findMany()
-     * 
-     * // Get first 10 AISummaries
-     * const aISummaries = await prisma.aISummary.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const aISummaryWithIdOnly = await prisma.aISummary.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends AISummaryFindManyArgs>(args?: SelectSubset<T, AISummaryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a AISummary.
-     * @param {AISummaryCreateArgs} args - Arguments to create a AISummary.
-     * @example
-     * // Create one AISummary
-     * const AISummary = await prisma.aISummary.create({
-     *   data: {
-     *     // ... data to create a AISummary
-     *   }
-     * })
-     * 
-     */
-    create<T extends AISummaryCreateArgs>(args: SelectSubset<T, AISummaryCreateArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many AISummaries.
-     * @param {AISummaryCreateManyArgs} args - Arguments to create many AISummaries.
-     * @example
-     * // Create many AISummaries
-     * const aISummary = await prisma.aISummary.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends AISummaryCreateManyArgs>(args?: SelectSubset<T, AISummaryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many AISummaries and returns the data saved in the database.
-     * @param {AISummaryCreateManyAndReturnArgs} args - Arguments to create many AISummaries.
-     * @example
-     * // Create many AISummaries
-     * const aISummary = await prisma.aISummary.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many AISummaries and only return the `id`
-     * const aISummaryWithIdOnly = await prisma.aISummary.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends AISummaryCreateManyAndReturnArgs>(args?: SelectSubset<T, AISummaryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a AISummary.
-     * @param {AISummaryDeleteArgs} args - Arguments to delete one AISummary.
-     * @example
-     * // Delete one AISummary
-     * const AISummary = await prisma.aISummary.delete({
-     *   where: {
-     *     // ... filter to delete one AISummary
-     *   }
-     * })
-     * 
-     */
-    delete<T extends AISummaryDeleteArgs>(args: SelectSubset<T, AISummaryDeleteArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one AISummary.
-     * @param {AISummaryUpdateArgs} args - Arguments to update one AISummary.
-     * @example
-     * // Update one AISummary
-     * const aISummary = await prisma.aISummary.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends AISummaryUpdateArgs>(args: SelectSubset<T, AISummaryUpdateArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more AISummaries.
-     * @param {AISummaryDeleteManyArgs} args - Arguments to filter AISummaries to delete.
-     * @example
-     * // Delete a few AISummaries
-     * const { count } = await prisma.aISummary.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends AISummaryDeleteManyArgs>(args?: SelectSubset<T, AISummaryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AISummaries.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AISummaryUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many AISummaries
-     * const aISummary = await prisma.aISummary.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends AISummaryUpdateManyArgs>(args: SelectSubset<T, AISummaryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AISummaries and returns the data updated in the database.
-     * @param {AISummaryUpdateManyAndReturnArgs} args - Arguments to update many AISummaries.
-     * @example
-     * // Update many AISummaries
-     * const aISummary = await prisma.aISummary.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more AISummaries and only return the `id`
-     * const aISummaryWithIdOnly = await prisma.aISummary.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends AISummaryUpdateManyAndReturnArgs>(args: SelectSubset<T, AISummaryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one AISummary.
-     * @param {AISummaryUpsertArgs} args - Arguments to update or create a AISummary.
-     * @example
-     * // Update or create a AISummary
-     * const aISummary = await prisma.aISummary.upsert({
-     *   create: {
-     *     // ... data to create a AISummary
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the AISummary we want to update
-     *   }
-     * })
-     */
-    upsert<T extends AISummaryUpsertArgs>(args: SelectSubset<T, AISummaryUpsertArgs<ExtArgs>>): Prisma__AISummaryClient<$Result.GetResult<Prisma.$AISummaryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of AISummaries.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AISummaryCountArgs} args - Arguments to filter AISummaries to count.
-     * @example
-     * // Count the number of AISummaries
-     * const count = await prisma.aISummary.count({
-     *   where: {
-     *     // ... the filter for the AISummaries we want to count
-     *   }
-     * })
-    **/
-    count<T extends AISummaryCountArgs>(
-      args?: Subset<T, AISummaryCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AISummaryCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a AISummary.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AISummaryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AISummaryAggregateArgs>(args: Subset<T, AISummaryAggregateArgs>): Prisma.PrismaPromise<GetAISummaryAggregateType<T>>
-
-    /**
-     * Group by AISummary.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AISummaryGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AISummaryGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AISummaryGroupByArgs['orderBy'] }
-        : { orderBy?: AISummaryGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AISummaryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAISummaryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the AISummary model
-   */
-  readonly fields: AISummaryFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for AISummary.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AISummaryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the AISummary model
-   */
-  interface AISummaryFieldRefs {
-    readonly id: FieldRef<"AISummary", 'Int'>
-    readonly content: FieldRef<"AISummary", 'String'>
-    readonly generatedAt: FieldRef<"AISummary", 'DateTime'>
-    readonly postId: FieldRef<"AISummary", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * AISummary findUnique
-   */
-  export type AISummaryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * Filter, which AISummary to fetch.
-     */
-    where: AISummaryWhereUniqueInput
-  }
-
-  /**
-   * AISummary findUniqueOrThrow
-   */
-  export type AISummaryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * Filter, which AISummary to fetch.
-     */
-    where: AISummaryWhereUniqueInput
-  }
-
-  /**
-   * AISummary findFirst
-   */
-  export type AISummaryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * Filter, which AISummary to fetch.
-     */
-    where?: AISummaryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AISummaries to fetch.
-     */
-    orderBy?: AISummaryOrderByWithRelationInput | AISummaryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AISummaries.
-     */
-    cursor?: AISummaryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AISummaries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AISummaries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AISummaries.
-     */
-    distinct?: AISummaryScalarFieldEnum | AISummaryScalarFieldEnum[]
-  }
-
-  /**
-   * AISummary findFirstOrThrow
-   */
-  export type AISummaryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * Filter, which AISummary to fetch.
-     */
-    where?: AISummaryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AISummaries to fetch.
-     */
-    orderBy?: AISummaryOrderByWithRelationInput | AISummaryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AISummaries.
-     */
-    cursor?: AISummaryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AISummaries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AISummaries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AISummaries.
-     */
-    distinct?: AISummaryScalarFieldEnum | AISummaryScalarFieldEnum[]
-  }
-
-  /**
-   * AISummary findMany
-   */
-  export type AISummaryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * Filter, which AISummaries to fetch.
-     */
-    where?: AISummaryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AISummaries to fetch.
-     */
-    orderBy?: AISummaryOrderByWithRelationInput | AISummaryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing AISummaries.
-     */
-    cursor?: AISummaryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AISummaries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AISummaries.
-     */
-    skip?: number
-    distinct?: AISummaryScalarFieldEnum | AISummaryScalarFieldEnum[]
-  }
-
-  /**
-   * AISummary create
-   */
-  export type AISummaryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * The data needed to create a AISummary.
-     */
-    data: XOR<AISummaryCreateInput, AISummaryUncheckedCreateInput>
-  }
-
-  /**
-   * AISummary createMany
-   */
-  export type AISummaryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many AISummaries.
-     */
-    data: AISummaryCreateManyInput | AISummaryCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * AISummary createManyAndReturn
-   */
-  export type AISummaryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * The data used to create many AISummaries.
-     */
-    data: AISummaryCreateManyInput | AISummaryCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * AISummary update
-   */
-  export type AISummaryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * The data needed to update a AISummary.
-     */
-    data: XOR<AISummaryUpdateInput, AISummaryUncheckedUpdateInput>
-    /**
-     * Choose, which AISummary to update.
-     */
-    where: AISummaryWhereUniqueInput
-  }
-
-  /**
-   * AISummary updateMany
-   */
-  export type AISummaryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AISummaries.
-     */
-    data: XOR<AISummaryUpdateManyMutationInput, AISummaryUncheckedUpdateManyInput>
-    /**
-     * Filter which AISummaries to update
-     */
-    where?: AISummaryWhereInput
-    /**
-     * Limit how many AISummaries to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * AISummary updateManyAndReturn
-   */
-  export type AISummaryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * The data used to update AISummaries.
-     */
-    data: XOR<AISummaryUpdateManyMutationInput, AISummaryUncheckedUpdateManyInput>
-    /**
-     * Filter which AISummaries to update
-     */
-    where?: AISummaryWhereInput
-    /**
-     * Limit how many AISummaries to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * AISummary upsert
-   */
-  export type AISummaryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * The filter to search for the AISummary to update in case it exists.
-     */
-    where: AISummaryWhereUniqueInput
-    /**
-     * In case the AISummary found by the `where` argument doesn't exist, create a new AISummary with this data.
-     */
-    create: XOR<AISummaryCreateInput, AISummaryUncheckedCreateInput>
-    /**
-     * In case the AISummary was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AISummaryUpdateInput, AISummaryUncheckedUpdateInput>
-  }
-
-  /**
-   * AISummary delete
-   */
-  export type AISummaryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-    /**
-     * Filter which AISummary to delete.
-     */
-    where: AISummaryWhereUniqueInput
-  }
-
-  /**
-   * AISummary deleteMany
-   */
-  export type AISummaryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AISummaries to delete
-     */
-    where?: AISummaryWhereInput
-    /**
-     * Limit how many AISummaries to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * AISummary without action
-   */
-  export type AISummaryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AISummary
-     */
-    select?: AISummarySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AISummary
-     */
-    omit?: AISummaryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AISummaryInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -7102,6 +5918,7 @@ export namespace Prisma {
     content: 'content',
     likes: 'likes',
     authorId: 'authorId',
+    aiSummary: 'aiSummary',
     createdAt: 'createdAt'
   };
 
@@ -7134,16 +5951,6 @@ export namespace Prisma {
   };
 
   export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
-
-
-  export const AISummaryScalarFieldEnum: {
-    id: 'id',
-    content: 'content',
-    generatedAt: 'generatedAt',
-    postId: 'postId'
-  };
-
-  export type AISummaryScalarFieldEnum = (typeof AISummaryScalarFieldEnum)[keyof typeof AISummaryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7334,9 +6141,9 @@ export namespace Prisma {
     content?: StringFilter<"Post"> | string
     likes?: IntNullableListFilter<"Post">
     authorId?: IntFilter<"Post"> | number
+    aiSummary?: StringFilter<"Post"> | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
-    aiSummary?: XOR<AISummaryNullableScalarRelationFilter, AISummaryWhereInput> | null
     comments?: CommentListRelationFilter
   }
 
@@ -7346,9 +6153,9 @@ export namespace Prisma {
     content?: SortOrder
     likes?: SortOrder
     authorId?: SortOrder
+    aiSummary?: SortOrder
     createdAt?: SortOrder
     author?: UserOrderByWithRelationInput
-    aiSummary?: AISummaryOrderByWithRelationInput
     comments?: CommentOrderByRelationAggregateInput
   }
 
@@ -7361,9 +6168,9 @@ export namespace Prisma {
     content?: StringFilter<"Post"> | string
     likes?: IntNullableListFilter<"Post">
     authorId?: IntFilter<"Post"> | number
+    aiSummary?: StringFilter<"Post"> | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
-    aiSummary?: XOR<AISummaryNullableScalarRelationFilter, AISummaryWhereInput> | null
     comments?: CommentListRelationFilter
   }, "id">
 
@@ -7373,6 +6180,7 @@ export namespace Prisma {
     content?: SortOrder
     likes?: SortOrder
     authorId?: SortOrder
+    aiSummary?: SortOrder
     createdAt?: SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
@@ -7390,6 +6198,7 @@ export namespace Prisma {
     content?: StringWithAggregatesFilter<"Post"> | string
     likes?: IntNullableListFilter<"Post">
     authorId?: IntWithAggregatesFilter<"Post"> | number
+    aiSummary?: StringWithAggregatesFilter<"Post"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
   }
 
@@ -7540,58 +6349,6 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
   }
 
-  export type AISummaryWhereInput = {
-    AND?: AISummaryWhereInput | AISummaryWhereInput[]
-    OR?: AISummaryWhereInput[]
-    NOT?: AISummaryWhereInput | AISummaryWhereInput[]
-    id?: IntFilter<"AISummary"> | number
-    content?: StringFilter<"AISummary"> | string
-    generatedAt?: DateTimeFilter<"AISummary"> | Date | string
-    postId?: IntFilter<"AISummary"> | number
-    post?: XOR<PostScalarRelationFilter, PostWhereInput>
-  }
-
-  export type AISummaryOrderByWithRelationInput = {
-    id?: SortOrder
-    content?: SortOrder
-    generatedAt?: SortOrder
-    postId?: SortOrder
-    post?: PostOrderByWithRelationInput
-  }
-
-  export type AISummaryWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    postId?: number
-    AND?: AISummaryWhereInput | AISummaryWhereInput[]
-    OR?: AISummaryWhereInput[]
-    NOT?: AISummaryWhereInput | AISummaryWhereInput[]
-    content?: StringFilter<"AISummary"> | string
-    generatedAt?: DateTimeFilter<"AISummary"> | Date | string
-    post?: XOR<PostScalarRelationFilter, PostWhereInput>
-  }, "id" | "postId">
-
-  export type AISummaryOrderByWithAggregationInput = {
-    id?: SortOrder
-    content?: SortOrder
-    generatedAt?: SortOrder
-    postId?: SortOrder
-    _count?: AISummaryCountOrderByAggregateInput
-    _avg?: AISummaryAvgOrderByAggregateInput
-    _max?: AISummaryMaxOrderByAggregateInput
-    _min?: AISummaryMinOrderByAggregateInput
-    _sum?: AISummarySumOrderByAggregateInput
-  }
-
-  export type AISummaryScalarWhereWithAggregatesInput = {
-    AND?: AISummaryScalarWhereWithAggregatesInput | AISummaryScalarWhereWithAggregatesInput[]
-    OR?: AISummaryScalarWhereWithAggregatesInput[]
-    NOT?: AISummaryScalarWhereWithAggregatesInput | AISummaryScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"AISummary"> | number
-    content?: StringWithAggregatesFilter<"AISummary"> | string
-    generatedAt?: DateTimeWithAggregatesFilter<"AISummary"> | Date | string
-    postId?: IntWithAggregatesFilter<"AISummary"> | number
-  }
-
   export type UserCreateInput = {
     name: string
     email: string
@@ -7682,9 +6439,9 @@ export namespace Prisma {
     title: string
     content: string
     likes?: PostCreatelikesInput | number[]
+    aiSummary: string
     createdAt?: Date | string
     author: UserCreateNestedOneWithoutPostsInput
-    aiSummary?: AISummaryCreateNestedOneWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
   }
 
@@ -7694,8 +6451,8 @@ export namespace Prisma {
     content: string
     likes?: PostCreatelikesInput | number[]
     authorId: number
+    aiSummary: string
     createdAt?: Date | string
-    aiSummary?: AISummaryUncheckedCreateNestedOneWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -7703,9 +6460,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
-    aiSummary?: AISummaryUpdateOneWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
   }
 
@@ -7715,8 +6472,8 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
     authorId?: IntFieldUpdateOperationsInput | number
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    aiSummary?: AISummaryUncheckedUpdateOneWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -7726,6 +6483,7 @@ export namespace Prisma {
     content: string
     likes?: PostCreatelikesInput | number[]
     authorId: number
+    aiSummary: string
     createdAt?: Date | string
   }
 
@@ -7733,6 +6491,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7742,6 +6501,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
     authorId?: IntFieldUpdateOperationsInput | number
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7888,51 +6648,6 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     hostId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AISummaryCreateInput = {
-    content: string
-    generatedAt?: Date | string
-    post: PostCreateNestedOneWithoutAiSummaryInput
-  }
-
-  export type AISummaryUncheckedCreateInput = {
-    id?: number
-    content: string
-    generatedAt?: Date | string
-    postId: number
-  }
-
-  export type AISummaryUpdateInput = {
-    content?: StringFieldUpdateOperationsInput | string
-    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    post?: PostUpdateOneRequiredWithoutAiSummaryNestedInput
-  }
-
-  export type AISummaryUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    content?: StringFieldUpdateOperationsInput | string
-    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    postId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type AISummaryCreateManyInput = {
-    id?: number
-    content: string
-    generatedAt?: Date | string
-    postId: number
-  }
-
-  export type AISummaryUpdateManyMutationInput = {
-    content?: StringFieldUpdateOperationsInput | string
-    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AISummaryUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    content?: StringFieldUpdateOperationsInput | string
-    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    postId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -8134,17 +6849,13 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type AISummaryNullableScalarRelationFilter = {
-    is?: AISummaryWhereInput | null
-    isNot?: AISummaryWhereInput | null
-  }
-
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
     likes?: SortOrder
     authorId?: SortOrder
+    aiSummary?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -8159,6 +6870,7 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     authorId?: SortOrder
+    aiSummary?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -8167,6 +6879,7 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     authorId?: SortOrder
+    aiSummary?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -8267,37 +6980,6 @@ export namespace Prisma {
     id?: SortOrder
     attendees?: SortOrder
     hostId?: SortOrder
-  }
-
-  export type AISummaryCountOrderByAggregateInput = {
-    id?: SortOrder
-    content?: SortOrder
-    generatedAt?: SortOrder
-    postId?: SortOrder
-  }
-
-  export type AISummaryAvgOrderByAggregateInput = {
-    id?: SortOrder
-    postId?: SortOrder
-  }
-
-  export type AISummaryMaxOrderByAggregateInput = {
-    id?: SortOrder
-    content?: SortOrder
-    generatedAt?: SortOrder
-    postId?: SortOrder
-  }
-
-  export type AISummaryMinOrderByAggregateInput = {
-    id?: SortOrder
-    content?: SortOrder
-    generatedAt?: SortOrder
-    postId?: SortOrder
-  }
-
-  export type AISummarySumOrderByAggregateInput = {
-    id?: SortOrder
-    postId?: SortOrder
   }
 
   export type PostCreateNestedManyWithoutAuthorInput = {
@@ -8460,23 +7142,11 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type AISummaryCreateNestedOneWithoutPostInput = {
-    create?: XOR<AISummaryCreateWithoutPostInput, AISummaryUncheckedCreateWithoutPostInput>
-    connectOrCreate?: AISummaryCreateOrConnectWithoutPostInput
-    connect?: AISummaryWhereUniqueInput
-  }
-
   export type CommentCreateNestedManyWithoutPostInput = {
     create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
     createMany?: CommentCreateManyPostInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
-  export type AISummaryUncheckedCreateNestedOneWithoutPostInput = {
-    create?: XOR<AISummaryCreateWithoutPostInput, AISummaryUncheckedCreateWithoutPostInput>
-    connectOrCreate?: AISummaryCreateOrConnectWithoutPostInput
-    connect?: AISummaryWhereUniqueInput
   }
 
   export type CommentUncheckedCreateNestedManyWithoutPostInput = {
@@ -8499,16 +7169,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
   }
 
-  export type AISummaryUpdateOneWithoutPostNestedInput = {
-    create?: XOR<AISummaryCreateWithoutPostInput, AISummaryUncheckedCreateWithoutPostInput>
-    connectOrCreate?: AISummaryCreateOrConnectWithoutPostInput
-    upsert?: AISummaryUpsertWithoutPostInput
-    disconnect?: AISummaryWhereInput | boolean
-    delete?: AISummaryWhereInput | boolean
-    connect?: AISummaryWhereUniqueInput
-    update?: XOR<XOR<AISummaryUpdateToOneWithWhereWithoutPostInput, AISummaryUpdateWithoutPostInput>, AISummaryUncheckedUpdateWithoutPostInput>
-  }
-
   export type CommentUpdateManyWithoutPostNestedInput = {
     create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
@@ -8521,16 +7181,6 @@ export namespace Prisma {
     update?: CommentUpdateWithWhereUniqueWithoutPostInput | CommentUpdateWithWhereUniqueWithoutPostInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutPostInput | CommentUpdateManyWithWhereWithoutPostInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
-  }
-
-  export type AISummaryUncheckedUpdateOneWithoutPostNestedInput = {
-    create?: XOR<AISummaryCreateWithoutPostInput, AISummaryUncheckedCreateWithoutPostInput>
-    connectOrCreate?: AISummaryCreateOrConnectWithoutPostInput
-    upsert?: AISummaryUpsertWithoutPostInput
-    disconnect?: AISummaryWhereInput | boolean
-    delete?: AISummaryWhereInput | boolean
-    connect?: AISummaryWhereUniqueInput
-    update?: XOR<XOR<AISummaryUpdateToOneWithWhereWithoutPostInput, AISummaryUpdateWithoutPostInput>, AISummaryUncheckedUpdateWithoutPostInput>
   }
 
   export type CommentUncheckedUpdateManyWithoutPostNestedInput = {
@@ -8596,20 +7246,6 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutEventsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEventsInput, UserUpdateWithoutEventsInput>, UserUncheckedUpdateWithoutEventsInput>
-  }
-
-  export type PostCreateNestedOneWithoutAiSummaryInput = {
-    create?: XOR<PostCreateWithoutAiSummaryInput, PostUncheckedCreateWithoutAiSummaryInput>
-    connectOrCreate?: PostCreateOrConnectWithoutAiSummaryInput
-    connect?: PostWhereUniqueInput
-  }
-
-  export type PostUpdateOneRequiredWithoutAiSummaryNestedInput = {
-    create?: XOR<PostCreateWithoutAiSummaryInput, PostUncheckedCreateWithoutAiSummaryInput>
-    connectOrCreate?: PostCreateOrConnectWithoutAiSummaryInput
-    upsert?: PostUpsertWithoutAiSummaryInput
-    connect?: PostWhereUniqueInput
-    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutAiSummaryInput, PostUpdateWithoutAiSummaryInput>, PostUncheckedUpdateWithoutAiSummaryInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8740,8 +7376,8 @@ export namespace Prisma {
     title: string
     content: string
     likes?: PostCreatelikesInput | number[]
+    aiSummary: string
     createdAt?: Date | string
-    aiSummary?: AISummaryCreateNestedOneWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
   }
 
@@ -8750,8 +7386,8 @@ export namespace Prisma {
     title: string
     content: string
     likes?: PostCreatelikesInput | number[]
+    aiSummary: string
     createdAt?: Date | string
-    aiSummary?: AISummaryUncheckedCreateNestedOneWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -8848,6 +7484,7 @@ export namespace Prisma {
     content?: StringFilter<"Post"> | string
     likes?: IntNullableListFilter<"Post">
     authorId?: IntFilter<"Post"> | number
+    aiSummary?: StringFilter<"Post"> | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
   }
 
@@ -8941,22 +7578,6 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
   }
 
-  export type AISummaryCreateWithoutPostInput = {
-    content: string
-    generatedAt?: Date | string
-  }
-
-  export type AISummaryUncheckedCreateWithoutPostInput = {
-    id?: number
-    content: string
-    generatedAt?: Date | string
-  }
-
-  export type AISummaryCreateOrConnectWithoutPostInput = {
-    where: AISummaryWhereUniqueInput
-    create: XOR<AISummaryCreateWithoutPostInput, AISummaryUncheckedCreateWithoutPostInput>
-  }
-
   export type CommentCreateWithoutPostInput = {
     content: string
     createdAt?: Date | string
@@ -9016,28 +7637,6 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
-  export type AISummaryUpsertWithoutPostInput = {
-    update: XOR<AISummaryUpdateWithoutPostInput, AISummaryUncheckedUpdateWithoutPostInput>
-    create: XOR<AISummaryCreateWithoutPostInput, AISummaryUncheckedCreateWithoutPostInput>
-    where?: AISummaryWhereInput
-  }
-
-  export type AISummaryUpdateToOneWithWhereWithoutPostInput = {
-    where?: AISummaryWhereInput
-    data: XOR<AISummaryUpdateWithoutPostInput, AISummaryUncheckedUpdateWithoutPostInput>
-  }
-
-  export type AISummaryUpdateWithoutPostInput = {
-    content?: StringFieldUpdateOperationsInput | string
-    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AISummaryUncheckedUpdateWithoutPostInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    content?: StringFieldUpdateOperationsInput | string
-    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type CommentUpsertWithWhereUniqueWithoutPostInput = {
     where: CommentWhereUniqueInput
     update: XOR<CommentUpdateWithoutPostInput, CommentUncheckedUpdateWithoutPostInput>
@@ -9058,9 +7657,9 @@ export namespace Prisma {
     title: string
     content: string
     likes?: PostCreatelikesInput | number[]
+    aiSummary: string
     createdAt?: Date | string
     author: UserCreateNestedOneWithoutPostsInput
-    aiSummary?: AISummaryCreateNestedOneWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutCommentsInput = {
@@ -9069,8 +7668,8 @@ export namespace Prisma {
     content: string
     likes?: PostCreatelikesInput | number[]
     authorId: number
+    aiSummary: string
     createdAt?: Date | string
-    aiSummary?: AISummaryUncheckedCreateNestedOneWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutCommentsInput = {
@@ -9123,9 +7722,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
-    aiSummary?: AISummaryUpdateOneWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutCommentsInput = {
@@ -9134,8 +7733,8 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
     authorId?: IntFieldUpdateOperationsInput | number
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    aiSummary?: AISummaryUncheckedUpdateOneWithoutPostNestedInput
   }
 
   export type UserUpsertWithoutCommentsInput = {
@@ -9240,65 +7839,12 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
-  export type PostCreateWithoutAiSummaryInput = {
-    title: string
-    content: string
-    likes?: PostCreatelikesInput | number[]
-    createdAt?: Date | string
-    author: UserCreateNestedOneWithoutPostsInput
-    comments?: CommentCreateNestedManyWithoutPostInput
-  }
-
-  export type PostUncheckedCreateWithoutAiSummaryInput = {
-    id?: number
-    title: string
-    content: string
-    likes?: PostCreatelikesInput | number[]
-    authorId: number
-    createdAt?: Date | string
-    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
-  }
-
-  export type PostCreateOrConnectWithoutAiSummaryInput = {
-    where: PostWhereUniqueInput
-    create: XOR<PostCreateWithoutAiSummaryInput, PostUncheckedCreateWithoutAiSummaryInput>
-  }
-
-  export type PostUpsertWithoutAiSummaryInput = {
-    update: XOR<PostUpdateWithoutAiSummaryInput, PostUncheckedUpdateWithoutAiSummaryInput>
-    create: XOR<PostCreateWithoutAiSummaryInput, PostUncheckedCreateWithoutAiSummaryInput>
-    where?: PostWhereInput
-  }
-
-  export type PostUpdateToOneWithWhereWithoutAiSummaryInput = {
-    where?: PostWhereInput
-    data: XOR<PostUpdateWithoutAiSummaryInput, PostUncheckedUpdateWithoutAiSummaryInput>
-  }
-
-  export type PostUpdateWithoutAiSummaryInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    likes?: PostUpdatelikesInput | number[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    author?: UserUpdateOneRequiredWithoutPostsNestedInput
-    comments?: CommentUpdateManyWithoutPostNestedInput
-  }
-
-  export type PostUncheckedUpdateWithoutAiSummaryInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    likes?: PostUpdatelikesInput | number[]
-    authorId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
-  }
-
   export type PostCreateManyAuthorInput = {
     id?: number
     title: string
     content: string
     likes?: PostCreatelikesInput | number[]
+    aiSummary: string
     createdAt?: Date | string
   }
 
@@ -9326,8 +7872,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    aiSummary?: AISummaryUpdateOneWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
   }
 
@@ -9336,8 +7882,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    aiSummary?: AISummaryUncheckedUpdateOneWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -9346,6 +7892,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     likes?: PostUpdatelikesInput | number[]
+    aiSummary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

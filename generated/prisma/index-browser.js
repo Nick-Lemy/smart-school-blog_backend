@@ -137,6 +137,7 @@ exports.Prisma.PostScalarFieldEnum = {
   content: 'content',
   likes: 'likes',
   authorId: 'authorId',
+  aiSummary: 'aiSummary',
   createdAt: 'createdAt'
 };
 
@@ -162,13 +163,6 @@ exports.Prisma.EventScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.AISummaryScalarFieldEnum = {
-  id: 'id',
-  content: 'content',
-  generatedAt: 'generatedAt',
-  postId: 'postId'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -187,8 +181,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Post: 'Post',
   Comment: 'Comment',
-  Event: 'Event',
-  AISummary: 'AISummary'
+  Event: 'Event'
 };
 
 /**

@@ -192,6 +192,7 @@ Get all posts.
     "content": "This is the content...",
     "likes": [2, 3, 5],
     "authorId": 1,
+    "aiSummary": "AI-generated summary of the post...",
     "createdAt": "2025-07-31T10:00:00.000Z",
     "author": {
       "id": 1,
@@ -263,6 +264,27 @@ _Requires JWT token_
 **URL Parameters:**
 
 - `id` (number) - Post ID
+
+### GET `/posts/:id/summary`
+
+Get AI-generated summary for a post.
+
+**URL Parameters:**
+
+- `id` (number) - Post ID
+
+**Response:**
+
+```json
+{
+  "content": "AI-generated summary of the post content..."
+}
+```
+
+**Conditions:**
+
+- Post must exist (404 if not found)
+- If post doesn't have an AI summary, one will be generated automatically
 
 ---
 
@@ -466,6 +488,7 @@ Authorization: Bearer <your_jwt_token>
 - `content`: string
 - `likes`: number[] (array of user IDs)
 - `authorId`: number (foreign key)
+- `aiSummary`: string (AI-generated summary)
 - `createdAt`: DateTime
 
 ### Comment
@@ -509,4 +532,5 @@ Create a `.env` file with:
 ```env
 DATABASE_URL="postgresql://username:password@localhost:5432/smart_school_blog"
 JWT_SECRET="your-super-secret-jwt-key"
+GEMINI_API_KEY="your-gemini-api-key-for-ai-summaries"
 ```

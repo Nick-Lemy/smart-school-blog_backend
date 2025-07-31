@@ -97,4 +97,17 @@ export class PostController {
     }
     return this.postService.like(+id, req.user.userId);
   }
+
+  @Get(':id/summary')
+  async getPostSummary(@Param('id') id: string) {
+    const post = await this.postService.findOne(+id);
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+    const summary = await this.postService.generateAISummary(post.content);
+    if (!summary) {
+      throw new NotFoundException('Post not found');
+    }
+    return summary;
+  }
 }
