@@ -26,11 +26,10 @@ export class PostService {
         ],
       };
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       const response = await axios.post(URL, body);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const data = response.data as any;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return data['candidates'][0]['content']['parts'][0].text as string;
     } catch (error) {
       console.error('Failed to generate AI summary:', error);
@@ -141,7 +140,6 @@ export class PostService {
       return { content: newSummary };
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     return { content: post.aiSummary };
   }
 }
