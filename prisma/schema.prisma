@@ -62,6 +62,7 @@ model Event {
   startDate   DateTime
   endDate     DateTime
   attendees   Int[]
+  location    String
   hostId      Int
   host        User     @relation(fields: [hostId], references: [id])
   createdAt   DateTime @default(now())

@@ -9,12 +9,19 @@ export class CreateEventDto {
   @IsNotEmpty()
   category: string;
 
+  @IsString()
+  @IsNotEmpty()
+  location: string;
+
+  @IsNotEmpty()
   @IsDateString()
   startDate: string;
 
+  @IsNotEmpty()
   @IsDateString()
   endDate: string;
 
+  @IsNotEmpty()
   @IsString()
   description: string;
 }
