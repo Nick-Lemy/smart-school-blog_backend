@@ -57,6 +57,7 @@ export class EventController {
     return this.eventService.register(+id, req.user.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(
     @Param('id') id: string,
