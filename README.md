@@ -156,6 +156,46 @@ _Requires JWT token_
 }
 ```
 
+### PATCH `/users/:id`
+
+Update any user profile (Admin only).
+_Requires JWT token_
+
+**URL Parameters:**
+
+- `id` (number) - User ID
+
+**Request Body (all optional):**
+
+```json
+{
+  "name": "Updated Name",
+  "email": "updated@example.com",
+  "role": "teacher",
+  "languagePreference": "Fr",
+  "isVerified": true
+}
+```
+
+**Conditions:**
+
+- User must exist (404 if not found)
+- User must have admin privileges (`isVerified: true`) OR be updating their own profile
+
+### DELETE `/users/:id`
+
+Delete a user account.
+_Requires JWT token_
+
+**URL Parameters:**
+
+- `id` (number) - User ID
+
+**Conditions:**
+
+- User must exist (404 if not found)
+- User must have admin privileges (`isVerified: true`) OR be deleting their own account
+
 ---
 
 ## Post Endpoints
@@ -254,7 +294,7 @@ _Requires JWT token_
 **Conditions:**
 
 - Post must exist (404 if not found)
-- User must be the post author (403 if not owner)
+- User must be the post author OR have admin privileges (`isVerified: true`)
 
 ### POST `/posts/like/:id`
 
@@ -444,6 +484,20 @@ _Requires JWT token_
 
 - `id` (number) - Event ID
 
+### DELETE `/event/:id`
+
+Delete an event.
+_Requires JWT token_
+
+**URL Parameters:**
+
+- `id` (number) - Event ID
+
+**Conditions:**
+
+- Event must exist (404 if not found)
+- User must be the event host OR have admin privileges (`isVerified: true`)
+
 ---
 
 ## General Endpoints
@@ -467,6 +521,16 @@ For all protected routes (marked with ), include the JWT token in the Authorizat
 ```yaml
 Authorization: Bearer <your_jwt_token>
 ```
+
+### Admin Privileges
+
+Users with `isVerified: true` have admin privileges and can:
+
+- Delete any post (not just their own)
+- Delete any event (not just their own)
+- Update any user profile
+- Delete any user account
+- Access admin-only features
 
 ## Data Models
 

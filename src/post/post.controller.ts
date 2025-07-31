@@ -22,7 +22,10 @@ export class PostController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Req() req: { user: { userId: number } }, @Body() dto: CreatePostDto) {
+  create(
+    @Req() req: { user: { userId: number; isVerified: boolean } },
+    @Body() dto: CreatePostDto,
+  ) {
     return this.postService.create(req.user.userId, dto);
   }
 
@@ -46,7 +49,7 @@ export class PostController {
   async update(
     @Param('id') id: string,
     @Body() dto: UpdatePostDto,
-    @Req() req: { user: { userId: number } },
+    @Req() req: { user: { userId: number; isVerified: boolean } },
   ) {
     const post = await this.postService.findOne(+id);
     if (!post) {
@@ -62,7 +65,7 @@ export class PostController {
   @Delete(':id')
   async remove(
     @Param('id') id: string,
-    @Req() req: { user: { userId: number } },
+    @Req() req: { user: { userId: number; isVerified: boolean } },
   ) {
     const post = await this.postService.findOne(+id);
 
@@ -70,7 +73,9 @@ export class PostController {
       throw new NotFoundException('Post not found');
     }
 
-    if (post.authorId !== req.user.userId) {
+    // Allow admin users (isVerified: true) to delete any post
+    // Regular users can only delete their own posts
+    if (!req.user.isVerified && post.authorId !== req.user.userId) {
       throw new ForbiddenException('You are not allowed to delete this post');
     }
 
@@ -86,7 +91,7 @@ export class PostController {
   @Post('like/:id')
   async like(
     @Param('id') id: string,
-    @Req() req: { user: { userId: number } },
+    @Req() req: { user: { userId: number; isVerified: boolean } },
   ) {
     const post = await this.postService.findOne(+id);
     if (!post) {

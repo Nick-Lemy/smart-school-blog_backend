@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
+  ForbiddenException,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -29,7 +32,12 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  getProfile(@Req() req: { user: { userId: number; email: string } }) {
+  getProfile(
+    @Req()
+    req: {
+      user: { userId: number; email: string; isVerified: boolean };
+    },
+  ) {
     return this.userService.findOne(req.user.userId);
   }
 
@@ -42,10 +50,58 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Patch('me')
   updateMe(
-    @Req() req: { user: { userId: number; email: string } },
+    @Req()
+    req: { user: { userId: number; email: string; isVerified: boolean } },
     @Body() dto: UpdateUserDto,
   ) {
     const userId = req.user.userId;
     return this.userService.update(userId, dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  async updateUser(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+    @Req()
+    req: { user: { userId: number; email: string; isVerified: boolean } },
+  ) {
+    const targetUserId = Number(id);
+    const targetUser = await this.userService.findOne(targetUserId);
+
+    if (!targetUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Only admins (isVerified: true) can update other users
+    // Users can only update themselves
+    if (!req.user.isVerified && targetUserId !== req.user.userId) {
+      throw new ForbiddenException('You are not allowed to update this user');
+    }
+
+    return this.userService.update(targetUserId, dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async deleteUser(
+    @Param('id') id: string,
+    @Req()
+    req: { user: { userId: number; email: string; isVerified: boolean } },
+  ) {
+    const targetUserId = Number(id);
+    const targetUser = await this.userService.findOne(targetUserId);
+
+    if (!targetUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Only admins (isVerified: true) can delete other users
+    // Users can delete themselves
+    if (!req.user.isVerified && targetUserId !== req.user.userId) {
+      throw new ForbiddenException('You are not allowed to delete this user');
+    }
+
+    return this.userService.remove(targetUserId);
   }
 }

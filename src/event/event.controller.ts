@@ -21,7 +21,8 @@ export class EventController {
   @Post()
   create(
     @Body() dto: CreateEventDto,
-    @Req() req: { user: { userId: number; email: string } },
+    @Req()
+    req: { user: { userId: number; email: string; isVerified: boolean } },
   ) {
     return this.eventService.create(req.user.userId, dto);
   }
@@ -52,7 +53,8 @@ export class EventController {
   @Post('register/:id')
   register(
     @Param('id') id: string,
-    @Req() req: { user: { userId: number; email: string } },
+    @Req()
+    req: { user: { userId: number; email: string; isVerified: boolean } },
   ) {
     return this.eventService.register(+id, req.user.userId);
   }
@@ -61,20 +63,22 @@ export class EventController {
   @Delete(':id')
   async delete(
     @Param('id') id: string,
-    @Req() req: { user: { userId: number; email: string } },
+    @Req()
+    req: { user: { userId: number; email: string; isVerified: boolean } },
   ) {
-    // Optionally, you can check if the user is the host before allowing deletion
+    // Check if the event exists
     const event = await this.eventService.findOne(+id);
     if (!event) {
       throw new ForbiddenException('Event not found');
     }
-    if (event.hostId !== req.user.userId) {
+
+    // Allow admin users (isVerified: true) to delete any event
+    // Regular users can only delete their own events
+    if (!req.user.isVerified && event.hostId !== req.user.userId) {
       throw new ForbiddenException('You are not allowed to delete this event');
     }
+
     // Proceed with deletion
-    if (!req.user) {
-      throw new Error('Unauthorized');
-    }
     return this.eventService.delete(+id);
   }
 
