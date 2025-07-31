@@ -43,6 +43,10 @@ export class EventService {
     return this.prisma.event.update({ where: { id }, data: dto });
   }
 
+  delete(id: number) {
+    return this.prisma.event.delete({ where: { id } });
+  }
+
   async register(id: number, userId: number) {
     const event = await this.findOne(id);
     if (!event) return;

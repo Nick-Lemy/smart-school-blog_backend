@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Delete,
+  ForbiddenException,
   Get,
   Param,
   Post,
@@ -48,7 +50,30 @@ export class EventController {
 
   @UseGuards(JwtAuthGuard)
   @Post('register/:id')
-  register(@Param('id') id: string, @Req() req: { user: { userId: number } }) {
+  register(
+    @Param('id') id: string,
+    @Req() req: { user: { userId: number; email: string } },
+  ) {
     return this.eventService.register(+id, req.user.userId);
+  }
+
+  @Delete(':id')
+  async delete(
+    @Param('id') id: string,
+    @Req() req: { user: { userId: number; email: string } },
+  ) {
+    // Optionally, you can check if the user is the host before allowing deletion
+    const event = await this.eventService.findOne(+id);
+    if (!event) {
+      throw new ForbiddenException('Event not found');
+    }
+    if (event.hostId !== req.user.userId) {
+      throw new ForbiddenException('You are not allowed to delete this event');
+    }
+    // Proceed with deletion
+    if (!req.user) {
+      throw new Error('Unauthorized');
+    }
+    return this.eventService.delete(+id);
   }
 }
