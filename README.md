@@ -1,600 +1,232 @@
-# Smart School Blog Backend API Documentation
+# Smart School Blog Backend
 
-Complete API documentation for the Smart School Blog backend - a NestJS application with JWT authentication, posts, comments, events, and user management.
+A NestJS backend application for a smart school blog system with JWT authentication, AI-powered post summaries, user management, events, and comments.
 
----
+## Features
 
-## Quick Start
+- **Authentication**: JWT-based user authentication and authorization
+- **User Management**: User registration, login, and profile management
+- **Posts**: Create, read, update, delete blog posts with AI-generated summaries
+- **Comments**: Comment system for posts
+- **Events**: Event creation and management system
+- **Admin Panel**: Admin users can manage all content
+- **AI Integration**: Automatic AI summary generation using Google Gemini API
 
-1. Install dependencies: `npm install`
-2. Set up your `.env` file with `DATABASE_URL`
-3. Run Prisma migrations: `npx prisma migrate dev`
-4. Start the server: `npm run start:dev`
+## Prerequisites
 
----
+Before running this application, make sure you have the following installed:
 
-## Authentication Endpoints
+- **Node.js** (v18 or higher)
+- **npm** or **yarn**
+- **PostgreSQL** database
+- **Google Gemini API Key** (for AI summaries)
 
-### POST `/auth/register`
+## Installation
 
-Register a new user.
+1. **Clone the repository**
 
-**Request Body:**
+   ```bash
+   git clone https://github.com/Nick-Lemy/smart-school-blog_backend.git
+   cd smart-school-blog_backend
+   ```
 
-```json
-{
-  "name": "John Doe",
-  "email": "user@example.com",
-  "password": "yourPassword123",
-  "role": "student",
-  "languagePreference": "Eng",
-  "isVerified": false
-}
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+
+   Create a `.env` file in the root directory with the following variables:
+
+   ```env
+   # Database Configuration
+   DATABASE_URL="postgresql://username:password@localhost:5432/smart_school_blog"
+
+   # JWT Configuration
+   JWT_SECRET="your-super-secret-jwt-key-change-this-in-production"
+
+   # AI Integration
+   GEMINI_API_KEY="your-gemini-api-key-for-ai-summaries"
+   ```
+
+   **Important Environment Variables:**
+   - `DATABASE_URL`: PostgreSQL connection string
+   - `JWT_SECRET`: Secret key for JWT token signing (use a strong, unique key in production)
+   - `GEMINI_API_KEY`: Google Gemini API key for AI summary generation
+
+## Database Setup
+
+1. **Set up PostgreSQL database**
+
+   Create a new PostgreSQL database for the application.
+
+2. **Run Prisma migrations**
+
+   ```bash
+   npx prisma migrate dev
+   ```
+
+3. **Generate Prisma Client**
+
+   ```bash
+   npx prisma generate
+   ```
+
+4. **Optional: Seed the database**
+   ```bash
+   npx prisma db seed
+   ```
+
+## Running the Application
+
+### Development Mode
+
+**With npm:**
+
+```bash
+npm run start:dev
 ```
 
-**Validation:**
+**With yarn:**
 
-- All fields required
-- `email` must be valid email format
-- `languagePreference` must be "Fr" or "Eng"
-
-**Response:**
-
-```json
-{
-  "id": 1,
-  "name": "John Doe",
-  "email": "user@example.com",
-  "role": "student",
-  "languagePreference": "Eng",
-  "isVerified": false,
-  "createdAt": "2025-07-31T10:00:00.000Z"
-}
+```bash
+yarn start:dev
 ```
 
-### POST `/auth/login`
+The application will start on `http://localhost:3000`
 
-Login and get JWT access token.
+### Production Mode
 
-**Request Body:**
+1. **Build the application**
 
-```json
-{
-  "email": "user@example.com",
-  "password": "yourPassword123"
-}
+   **With npm:**
+
+```bash
+npm run build
 ```
 
-**Response:**
+**With yarn:**
 
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
+```bash
+yarn build
 ```
 
----
+2. **Start the production server**
 
-## User Endpoints
+   **With npm:**
 
-### POST `/users`
-
-Create a new user (alternative to register).
-
-**Request Body:**
-
-```json
-{
-  "name": "John Doe",
-  "email": "user@example.com",
-  "password": "yourPassword123",
-  "role": "student",
-  "languagePreference": "Eng"
-}
+```bash
+npm run start:prod
 ```
 
-**Note:** The `isVerified` field is not required for user creation (only for registration)
+**With yarn:**
 
-### GET `/users`
-
-Get all users.
-_Requires JWT token_
-
-**Response:**
-
-```json
-[
-  {
-    "id": 1,
-    "name": "John Doe",
-    "email": "user@example.com",
-    "role": "student",
-    "languagePreference": "Eng",
-    "isVerified": false,
-    "createdAt": "2025-07-31T10:00:00.000Z"
-  }
-]
+```bash
+yarn start:prod
 ```
 
-### GET `/users/me`
+### Other Available Scripts
 
-Get current user profile.
-_Requires JWT token_
+| Script           | npm Command        | yarn Command    | Description             |
+| ---------------- | ------------------ | --------------- | ----------------------- |
+| Start            | `npm run start`    | `yarn start`    | Start the application   |
+| Lint             | `npm run lint`     | `yarn lint`     | Run ESLint              |
+| Unit Tests       | `npm run test`     | `yarn test`     | Run unit tests          |
+| End-to-End Tests | `npm run test:e2e` | `yarn test:e2e` | Run end-to-end tests    |
+| Test Coverage    | `npm run test:cov` | `yarn test:cov` | Run tests with coverage |
 
-**Response:**
+## Project Structure
 
-```json
-{
-  "userId": 1,
-  "email": "user@example.com"
-}
+```
+src/
+├── auth/           # Authentication module (JWT, guards, strategies)
+├── user/           # User management module
+├── post/           # Blog posts module with AI summaries
+├── comment/        # Comments module
+├── event/          # Events module
+├── prisma/         # Prisma service and configuration
+├── main.ts         # Application entry point
+└── app.module.ts   # Root application module
+
+prisma/
+├── schema.prisma   # Database schema
+└── migrations/     # Database migrations
+
+generated/
+└── prisma/         # Generated Prisma client
 ```
 
-### GET `/users/:id`
+## API Documentation
 
-Get user by ID.
-_Requires JWT token_
+For complete API documentation, see [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)
 
-**URL Parameters:**
+## Key Features Explained
 
-- `id` (number) - User ID
+### AI-Powered Summaries
 
-### PATCH `/users/me`
+- Posts automatically generate AI summaries using Google Gemini API
+- Summaries are stored in the database for quick access
+- Fallback to truncated content if AI service is unavailable
 
-Update current user profile.
-_Requires JWT token_
+### Admin System
 
-**Request Body (all optional):**
+- Users with `isVerified: true` have admin privileges
+- Admins can delete/update any content (posts, events, users)
+- Regular users can only manage their own content
 
-```json
-{
-  "name": "Johnny Updated",
-  "email": "newemail@example.com",
-  "role": "teacher",
-  "languagePreference": "Fr",
-  "isVerified": true
-}
+### Authentication & Authorization
+
+- JWT-based authentication
+- Role-based access control
+- Protected endpoints require valid JWT tokens
+
+## Environment Variables Reference
+
+| Variable         | Description                            | Required | Default |
+| ---------------- | -------------------------------------- | -------- | ------- |
+| `DATABASE_URL`   | PostgreSQL connection string           | Yes      | -       |
+| `JWT_SECRET`     | Secret key for JWT tokens              | Yes      | -       |
+| `GEMINI_API_KEY` | Google Gemini API key for AI summaries | Yes      | -       |
+
+## Database Schema
+
+The application uses the following main entities:
+
+- **User**: User accounts with roles and verification status
+- **Post**: Blog posts with AI-generated summaries
+- **Comment**: Comments on posts
+- **Event**: School events with attendee management
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Database Connection Error**
+   - Verify your `DATABASE_URL` is correct
+   - Ensure PostgreSQL is running
+   - Check database credentials
+
+2. **AI Summary Generation Fails**
+   - Verify your `GEMINI_API_KEY` is valid
+   - Check internet connection
+   - The app will fallback to truncated summaries
+
+3. **JWT Authentication Issues**
+   - Ensure `JWT_SECRET` is set in environment variables
+   - Check if JWT token is being sent in Authorization header
+
+### Database Reset
+
+If you need to reset your database:
+
+```bash
+npx prisma migrate reset
 ```
 
-### PATCH `/users/:id`
+**Warning**: This will delete all data in your database.
 
-Update any user profile (Admin only).
-_Requires JWT token_
+## Support
 
-**URL Parameters:**
-
-- `id` (number) - User ID
-
-**Request Body (all optional):**
-
-```json
-{
-  "name": "Updated Name",
-  "email": "updated@example.com",
-  "role": "teacher",
-  "languagePreference": "Fr",
-  "isVerified": true
-}
-```
-
-**Conditions:**
-
-- User must exist (404 if not found)
-- User must have admin privileges (`isVerified: true`) OR be updating their own profile
-
-### DELETE `/users/:id`
-
-Delete a user account.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `id` (number) - User ID
-
-**Conditions:**
-
-- User must exist (404 if not found)
-- User must have admin privileges (`isVerified: true`) OR be deleting their own account
-
----
-
-## Post Endpoints
-
-### POST `/posts`
-
-Create a new post.
-_Requires JWT token_
-
-**Request Body:**
-
-```json
-{
-  "title": "My First Post",
-  "content": "This is the content of my post..."
-}
-```
-
-**Validation:**
-
-- Both fields required and non-empty
-
-### GET `/posts`
-
-Get all posts.
-
-**Response:**
-
-```json
-[
-  {
-    "id": 1,
-    "title": "My First Post",
-    "content": "This is the content...",
-    "likes": [2, 3, 5],
-    "authorId": 1,
-    "aiSummary": "AI-generated summary of the post...",
-    "createdAt": "2025-07-31T10:00:00.000Z",
-    "author": {
-      "id": 1,
-      "name": "John Doe",
-      "email": "user@example.com"
-    }
-  }
-]
-```
-
-### GET `/posts/user/:authorId`
-
-Get posts by specific author.
-
-**URL Parameters:**
-
-- `authorId` (number) - Author's user ID
-
-### GET `/posts/:id`
-
-Get single post by ID.
-
-**URL Parameters:**
-
-- `id` (number) - Post ID
-
-### PATCH `/posts/:id`
-
-Update a post.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `id` (number) - Post ID
-
-**Request Body (both optional):**
-
-```json
-{
-  "title": "Updated Title",
-  "content": "Updated content..."
-}
-```
-
-**Conditions:**
-
-- Post must exist (404 if not found)
-- User must be the post author (403 if not owner)
-
-### DELETE `/posts/:id`
-
-Delete a post.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `id` (number) - Post ID
-
-**Conditions:**
-
-- Post must exist (404 if not found)
-- User must be the post author OR have admin privileges (`isVerified: true`)
-
-### POST `/posts/like/:id`
-
-Like/unlike a post.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `id` (number) - Post ID
-
-### GET `/posts/:id/summary`
-
-Get AI-generated summary for a post.
-
-**URL Parameters:**
-
-- `id` (number) - Post ID
-
-**Response:**
-
-```json
-{
-  "content": "AI-generated summary of the post content..."
-}
-```
-
-**Conditions:**
-
-- Post must exist (404 if not found)
-- If post doesn't have an AI summary, one will be generated automatically
-
----
-
-## Comment Endpoints
-
-### POST `/comment`
-
-Create a comment on a post.
-_Requires JWT token_
-
-**Request Body:**
-
-```json
-{
-  "content": "Great post!",
-  "postId": 1
-}
-```
-
-**Validation:**
-
-- Both fields required
-
-### GET `/comment/post/:postId`
-
-Get all comments for a specific post.
-
-**URL Parameters:**
-
-- `postId` (number) - Post ID
-
-**Response:**
-
-```json
-[
-  {
-    "id": 1,
-    "content": "Great post!",
-    "postId": 1,
-    "authorId": 2,
-    "createdAt": "2025-07-31T10:30:00.000Z",
-    "author": {
-      "id": 2,
-      "name": "Jane Smith",
-      "email": "jane@example.com"
-    }
-  }
-]
-```
-
-### DELETE `/comment/:id`
-
-Delete a comment.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `id` (number) - Comment ID
-
-**Conditions:**
-
-- Comment must exist (404 if not found)
-- User must be the comment author (403 if not owner)
-
----
-
-## Event Endpoints
-
-### POST `/event`
-
-Create a new event.
-_Requires JWT token_
-
-**Request Body:**
-
-```json
-{
-  "title": "School Science Fair",
-  "category": "Academic",
-  "location": "Main Auditorium",
-  "coverImage": "https://example.com/image.jpg",
-  "description": "Annual science fair event...",
-  "startDate": "2025-08-15T09:00:00.000Z",
-  "endDate": "2025-08-15T17:00:00.000Z"
-}
-```
-
-**Validation:**
-
-- All fields are required and non-empty
-- Dates must be in ISO format
-
-### GET `/event`
-
-Get all events.
-_Requires JWT token_
-
-**Response:**
-
-```json
-[
-  {
-    "id": 1,
-    "title": "School Science Fair",
-    "category": "Academic",
-    "description": "Annual science fair event...",
-    "location": "Main Auditorium",
-    "coverImage": "https://example.com/image.jpg",
-    "startDate": "2025-08-15T09:00:00.000Z",
-    "endDate": "2025-08-15T17:00:00.000Z",
-    "attendees": [2, 3, 5],
-    "hostId": 1,
-    "createdAt": "2025-07-31T10:00:00.000Z",
-    "host": {
-      "id": 1,
-      "name": "John Doe"
-    }
-  }
-]
-```
-
-### GET `/event/:id`
-
-Get single event by ID.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `id` (number) - Event ID
-
-### GET `/event/user/:hostId`
-
-Get events by specific host.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `hostId` (number) - Host's user ID
-
-### GET `/event/category?category=:category`
-
-Get events by category.
-_Requires JWT token_
-
-**Query Parameters:**
-
-- `category` (string) - Event category
-
-**Example:** `/event/category?category=Academic`
-
-### POST `/event/register/:id`
-
-Register for an event.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `id` (number) - Event ID
-
-### DELETE `/event/:id`
-
-Delete an event.
-_Requires JWT token_
-
-**URL Parameters:**
-
-- `id` (number) - Event ID
-
-**Conditions:**
-
-- Event must exist (404 if not found)
-- User must be the event host OR have admin privileges (`isVerified: true`)
-
----
-
-## General Endpoints
-
-### GET `/`
-
-Health check endpoint.
-
-**Response:**
-
-```json
-"Hello World!"
-```
-
----
-
-## Authentication
-
-For all protected routes (marked with ), include the JWT token in the Authorization header:
-
-```yaml
-Authorization: Bearer <your_jwt_token>
-```
-
-### Admin Privileges
-
-Users with `isVerified: true` have admin privileges and can:
-
-- Delete any post (not just their own)
-- Delete any event (not just their own)
-- Update any user profile
-- Delete any user account
-- Access admin-only features
-
-## Data Models
-
-### User
-
-- `id`: number (auto-increment)
-- `name`: string
-- `email`: string (unique)
-- `password`: string (hashed)
-- `role`: string
-- `languagePreference`: "Fr" | "Eng"
-- `isVerified`: boolean
-- `createdAt`: DateTime
-
-### Post
-
-- `id`: number (auto-increment)
-- `title`: string
-- `content`: string
-- `likes`: number[] (array of user IDs)
-- `authorId`: number (foreign key)
-- `aiSummary`: string (AI-generated summary)
-- `createdAt`: DateTime
-
-### Comment
-
-- `id`: number (auto-increment)
-- `content`: string
-- `postId`: number (foreign key)
-- `authorId`: number (foreign key)
-- `createdAt`: DateTime
-
-### Event
-
-- `id`: number (auto-increment)
-- `title`: string
-- `category`: string
-- `description`: string
-- `location`: string
-- `coverImage`: string
-- `startDate`: DateTime
-- `endDate`: DateTime
-- `attendees`: number[] (array of user IDs)
-- `hostId`: number (foreign key)
-- `createdAt`: DateTime
-
----
-
-## Error Handling
-
-- **400 Bad Request**: Invalid request body or validation errors
-- **401 Unauthorized**: Missing or invalid JWT token
-- **403 Forbidden**: User doesn't have permission for this action
-- **404 Not Found**: Resource not found
-- **500 Internal Server Error**: Server error
-
----
-
-## Environment Variables
-
-Create a `.env` file with:
-
-```env
-DATABASE_URL="postgresql://username:password@localhost:5432/smart_school_blog"
-JWT_SECRET="your-super-secret-jwt-key"
-GEMINI_API_KEY="your-gemini-api-key-for-ai-summaries"
-```
+For support and questions, please open an issue in the GitHub repository.
